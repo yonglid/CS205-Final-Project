@@ -1,5 +1,7 @@
 # CS205-Final-Project
 Final Project
+Current team: Peter Chang and Yong Li Dich
+
 Goal: Parallelize Peter's Research Project 
 
 Observe sea squirt that pumps blood in two directions to determine potential mathematical methods that govern the reversals within the heart, which would be tested through simulation.
