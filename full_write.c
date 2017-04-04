@@ -132,12 +132,20 @@ int main(int argc, char **argv) {
 		H_old[i] = 1;
 	}
 
+	// prepare file for writing
+	FILE *f = fopen("fulldatac", "wb");
+
 	printf("Loading frame:");
 
 	while (m < T+1) {
 
-		// write to file
-		
+		// write to file (frequency depends on resolution)
+		if (m % resolution == 0) {
+			for (int i = 0; i < width-1; i++) {
+			fprintf(f,"%f\t",V_old[i]);
+			}
+			fprintf(f,"%f\n",V_old[width-1]);
+		}	
 
 		// fill in interior grid points
 		for (int i = 1; i < N; i++) {
@@ -167,5 +175,8 @@ int main(int argc, char **argv) {
 		m += 1;
 
 	}
+	
+	fclose(f);
+	
 	return(0);
 }
