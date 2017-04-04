@@ -137,7 +137,9 @@ int main(int argc, char **argv) {
 	while (m < T+1) {
 
 		// write to file
-
+		FILE *f = fopen("fulldatac", "wb");
+		fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
+		fclose(f);
 
 		// fill in interior grid points
 		for (int i = 1; i < N; i++) {

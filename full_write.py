@@ -4,6 +4,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+# from cython.parallel import prange 
 
 #Constants
 timestep = 10**(-2)         #How many computations per ms of data
@@ -129,6 +130,7 @@ def main(T_output):
 
             print n,"/",int(frames)
             
+        #prange here 
         #fill in interior grid points
         for k in range(1,N):
             V_new[k] = stdupdate_v(k,V_old,H_old)
@@ -138,6 +140,7 @@ def main(T_output):
         #fill in right boundary
         V_new[N] = rupdate_v(k,V_old,H_old)
         
+        #prange here 
         #update door constants
         for k in range(0,N+1):    
             H_new[k] = update_h(V_old[k],H_old[k])
