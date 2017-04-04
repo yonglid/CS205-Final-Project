@@ -111,14 +111,14 @@ int main(int argc, char **argv) {
 	float V_new[width];
 
 	// stores spots to be printed
-	float V[width][height];
+	// float V[width][height];
 
 	// array for gate function
 	float H_old[width];
 	float H_new[width];
 
 	// fill in the 1st array w/ initial voltage
-	for (int i = 0; i < N+1; i++) {
+	for (int i = 0; i < width; i++) {
 		V_old[i] = v_init(i*spacestep);
 	}
 
@@ -137,7 +137,7 @@ int main(int argc, char **argv) {
 	while (m < T+1) {
 
 		// write to file
-
+		
 
 		// fill in interior grid points
 		for (int i = 1; i < N; i++) {
@@ -163,6 +163,9 @@ int main(int argc, char **argv) {
 		// update V, H arrays
 		copy_arr(V_old,V_new,width);
 		copy_arr(H_old,H_new,width);
+
+		m += 1;
+
 	}
 	return(0);
 }
