@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 	}
 
 	// prepare file for writing
-	FILE *f = fopen("fulldatac.txt", "wb");
+	FILE *f = fopen("fulldatac", "wb");
 
 	printf("Loading frame:");
 

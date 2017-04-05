@@ -14,7 +14,7 @@ sd = 20.0
 # 1600 low res/real time 
 resolution = 600
 
-def file_to_png(): 
+def file_to_png(f): 
 
 	#setting y and x limits of the current axes (ylim( (ymin, ymax) ))
 	plt.ylim(0, 1)
@@ -22,7 +22,7 @@ def file_to_png():
 	plt.xlabel('res:' + str(resolution) + ', L: ' + str(L) + ', N: ' + str(N) + ', BCL: ' + str(BCL) + ', sd: ' + str(sd))
 	# for testing, will need to change fulldatac.txt to fulldatac 
 	# later try putting "f" in the function argument and change code to file = open("%s" % f, "r")
-	file = open("fulldatac", "r")
+	file = open("%s" % f, "r")
 	print file.read() 
 
 	# next, parse through file - split it up and insert - need a loop through the file and plot each thing and save as png 
@@ -32,4 +32,4 @@ def file_to_png():
 	# 	plt.gcf().clear()
 	# 	print n,"/",int(frames)
 
-file_to_png() 
+file_to_png(full_data) 
