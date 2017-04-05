@@ -32,4 +32,4 @@ def file_to_png(f):
 	# 	plt.gcf().clear()
 	# 	print n,"/",int(frames)
 
-file_to_png(full_data) 
+file_to_png("full_data") 
