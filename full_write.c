@@ -79,11 +79,11 @@ int rand_fluc(float BCL, float sd) {
 }
 
 // copy one float array to another float array
-void copy_arr(float *A, float *B, int n) {
-	for (int i = 0; i < n; i ++) {
-		A[i] = B[i];
-	}
-}
+// void copy_arr(float *A, float *B, int n) {
+// 	for (int i = 0; i < n; i ++) {
+// 		A[i] = B[i];
+// 	}
+// }
 
 int main(int argc, char **argv) {
 
@@ -137,9 +137,9 @@ int main(int argc, char **argv) {
 	while (m < T+1) {
 
 		// write to file
-		FILE *f = fopen("fulldatac", "wb");
-		fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
-		fclose(f);
+		// FILE *f = fopen("fulldatac", "wb");
+		// fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
+		// fclose(f);
 
 		// fill in interior grid points
 		for (int i = 1; i < N; i++) {
@@ -163,8 +163,8 @@ int main(int argc, char **argv) {
 		}
 
 		// update V, H arrays
-		copy_arr(V_old,V_new,width);
-		copy_arr(H_old,H_new,width);
+		float copy_arr(V_old,V_new,width);
+		float copy_arr(H_old,H_new,width);
 	}
 	return(0);
 }
