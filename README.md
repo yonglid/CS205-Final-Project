@@ -10,11 +10,17 @@ Language: Current code in Python from Peter's research project - but might be re
 
 
 Benchmarking:
+
 Step = 10^-2, L=3.0, N=300
+
 10ms, res=10: time=1.06
+
 100ms, res=10: time=6.02
+
 100ms, res=100: time=5.76
 
 1000ms, res=600: time=52.2
+
 10000ms, res=600: time=527.0
+
 30000ms, res=600: time=1753.3
