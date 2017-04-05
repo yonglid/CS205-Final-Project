@@ -111,14 +111,14 @@ int main(int argc, char **argv) {
 	float V_new[width];
 
 	// stores spots to be printed
-	float V[width][height];
+	// float V[width][height];
 
 	// array for gate function
 	float H_old[width];
 	float H_new[width];
 
 	// fill in the 1st array w/ initial voltage
-	for (int i = 0; i < N+1; i++) {
+	for (int i = 0; i < width; i++) {
 		V_old[i] = v_init(i*spacestep);
 	}
 
@@ -132,14 +132,27 @@ int main(int argc, char **argv) {
 		H_old[i] = 1;
 	}
 
+	// prepare file for writing
+	FILE *f = fopen("fulldatac", "wb");
+
 	printf("Loading frame:");
 
 	while (m < T+1) {
+
 
 		// write to file
 		// FILE *f = fopen("fulldatac", "wb");
 		// fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
 		// fclose(f);
+
+		// write to file (frequency depends on resolution)
+		if (m % resolution == 0) {
+			for (int i = 0; i < width-1; i++) {
+			fprintf(f,"%f\t",V_old[i]);
+			}
+			fprintf(f,"%f\n",V_old[width-1]);
+		}	
+
 
 		// fill in interior grid points
 		for (int i = 1; i < N; i++) {
@@ -163,8 +176,13 @@ int main(int argc, char **argv) {
 		}
 
 		// update V, H arrays
-		float copy_arr(V_old,V_new,width);
-		float copy_arr(H_old,H_new,width);
+		copy_arr(V_old,V_new,width);
+		copy_arr(H_old,H_new,width);
+
+		m += 1;
 	}
+	
+	fclose(f);
+	
 	return(0);
 }
