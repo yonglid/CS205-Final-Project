@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
 	}
 
 	// prepare file for writing
-	FILE *f = fopen("fulldatac", "wb");
+	FILE *f = fopen("fulldatac_par", "wb");
 
 	printf("Loading frame:");
 
