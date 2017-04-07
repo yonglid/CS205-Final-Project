@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 // global variables
 float T_output = 60000;
@@ -79,11 +80,11 @@ int rand_fluc(float BCL, float sd) {
 }
 
 // copy one float array to another float array
-// void copy_arr(float *A, float *B, int n) {
-// 	for (int i = 0; i < n; i ++) {
-// 		A[i] = B[i];
-// 	}
-// }
+void copy_arr(float *A, float *B, int n) {
+	for (int i = 0; i < n; i ++) {
+		A[i] = B[i];
+	}
+}
 
 int main(int argc, char **argv) {
 
@@ -110,9 +111,6 @@ int main(int argc, char **argv) {
 	float V_old[width];
 	float V_new[width];
 
-	// stores spots to be printed
-	// float V[width][height];
-
 	// array for gate function
 	float H_old[width];
 	float H_new[width];
@@ -137,13 +135,10 @@ int main(int argc, char **argv) {
 
 	printf("Loading frame:");
 
+  	// start timer
+  	clock_t begin = clock();
+
 	while (m < T+1) {
-
-
-		// write to file
-		// FILE *f = fopen("fulldatac", "wb");
-		// fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
-		// fclose(f);
 
 		// write to file (frequency depends on resolution)
 		if (m % resolution == 0) {
@@ -181,7 +176,12 @@ int main(int argc, char **argv) {
 
 		m += 1;
 	}
-	
+
+	// end timer
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("%f",time_spent)
+
 	fclose(f);
 	
 	return(0);
