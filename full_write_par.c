@@ -111,9 +111,6 @@ int main(int argc, char **argv) {
 	float V_old[width];
 	float V_new[width];
 
-	// stores spots to be printed
-	// float V[width][height];
-
 	// array for gate function
 	float H_old[width];
 	float H_new[width];
@@ -137,14 +134,13 @@ int main(int argc, char **argv) {
 	FILE *f = fopen("fulldatac_par", "wb");
 
 	printf("Loading frame:");
+	
+	// start timer
+	clock_t begin = clock();
 
 	while (m < T+1) {
 
 
-		// write to file
-		// FILE *f = fopen("fulldatac", "wb");
-		// fwrite(fulldatac, sizeof(char), sizeof(fulldatac), f);
-		// fclose(f);
 
 		// write to file (frequency depends on resolution)
 		if (m % resolution == 0) {
@@ -185,7 +181,12 @@ int main(int argc, char **argv) {
 
 		m += 1;
 	}
-	
+
+	// end timer
+	clock_t end = clock();
+	double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("%f",time_spent);
+
 	fclose(f);
 	
 	return(0);
