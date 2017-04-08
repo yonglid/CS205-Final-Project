@@ -131,14 +131,16 @@ int main(int argc, char **argv) {
 	}
 
 	// prepare file for writing
-	FILE *f = fopen("fulldatac", "wb");
+	FILE *f = fopen("fulldatac_par", "wb");
 
 	printf("Loading frame:");
-
-  	// start timer
-  	clock_t begin = clock();
+	
+	// start timer
+	clock_t begin = clock();
 
 	while (m < T+1) {
+
+
 
 		// write to file (frequency depends on resolution)
 		if (m % resolution == 0) {
@@ -150,6 +152,7 @@ int main(int argc, char **argv) {
 
 
 		// fill in interior grid points
+		#pragma omp parallel for shared(V_new, N, V_old, H_old)
 		for (int i = 1; i < N; i++) {
 			V_new[i] = stdupdate_v(i,V_old,H_old);
 		}
@@ -159,11 +162,13 @@ int main(int argc, char **argv) {
 		// fill in right boundary
 		V_new[N] = rupdate_v(V_old,H_old);
 
+		#pragma omp parallel for shared(H_new, width, V_old, H_old)
 		for (int i = 0; i < width; i++) {
 			H_new[i] = update_h(V_old[i],H_old[i]);
 		}
 
 		if ((int)((m+1)*timestep) == R_var) {
+			#pragma omp parallel for shared(V_new, N, width)
 			for (int i = N-4; i < width; i++) {
 				V_new[i] = 0.8;
 			}
