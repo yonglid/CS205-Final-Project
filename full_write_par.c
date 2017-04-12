@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 	// prepare file for writing
 	FILE *f = fopen("fulldatac_par", "wb");
 
-	printf("Loading frame:");
+	printf("Loading frame:\n");
 	
 	// start timer
 	clock_t begin = clock();

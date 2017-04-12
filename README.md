@@ -24,3 +24,13 @@ Step = 10^-2, L=3.0, N=300
 10000ms, res=600: time=527.0
 
 30000ms, res=600: time=1753.3
+
+
+C Implementation: (Step = 10^-2, L=3.0, N=300)
+
+60000ms, res=600, time=307.410000
+
+
+OpenACC: (Step = 10^-2, L=3.0, N=300)
+
+60000ms, res=600, time=123.010000
