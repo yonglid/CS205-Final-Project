@@ -28,9 +28,14 @@ Step = 10^-2, L=3.0, N=300
 
 C Implementation: (Step = 10^-2, L=3.0, N=300)
 
-60000ms, res=600, time=307.410000
-
+30000ms, res=600, time=125.010000 (GFlop/s: 0.203)
+60000ms, res=600, time=307.410000 (GFlop/s: 0.165)
+150000ms, res=600, time=856.340000 (GFlop/s: 0.148)
+500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)
 
 OpenACC: (Step = 10^-2, L=3.0, N=300)
 
-60000ms, res=600, time=123.010000
+30000ms, res=600, time=61.090000 (GFlop/s: 0.415)
+60000ms, res=600, time=123.010000 (GFlop/s: 0.412)
+150000ms, res=600, time=308.050000 (GFlop/s: 0.412)
+500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)

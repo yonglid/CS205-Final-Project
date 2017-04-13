@@ -189,3 +189,5 @@ int main(int argc, char **argv) {
 	
 	return(0);
 }
+
+// GFlop/s = (28*N+52)*(T_output/timestep)/10^9/exec_time
