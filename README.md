@@ -21,9 +21,9 @@ Step = 10^-2, L=3.0, N=300
 
 1000ms, res=600: time=52.2  
 
-10000ms, res=600: time=527.0  
+10000ms, res=600: time=527.0  (GFlop/s: .016)
 
-30000ms, res=600: time=1753.3  
+30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
 
 C Implementation: (Step = 10^-2, L=3.0, N=300)  
