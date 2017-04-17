@@ -48,3 +48,5 @@ OpenACC: (Step = 10^-2, L=3.0, N=300)
 60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
 150000ms, res=600, time=308.050000 (GFlop/s: 0.412)  
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
+
+![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
