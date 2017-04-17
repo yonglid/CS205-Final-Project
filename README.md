@@ -2,12 +2,21 @@
 Final Project
 Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas 
 
-Project research: Observe sea squirt that pumps blood in two directions to determine potential mathematical methods that govern the reversals within the heart, which would be tested through simulation.
+Project research: The tunicate, or commonly known as the sea squirt, exhibit the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with variation 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
 
-Methods: random variation method and a controlled shifting method
+For this project, in order to assist in more efficient and productive research to test out more hypotheses on this phenomenon, the team attempted to parallelize the python code. The python code was coded into C code, writing data points of voltage in correlation with time into a file, which is taken in by a python program to create data plots for visualization/simulation. 
 
-Language: Current code in Python from Peter's research project - but might be re-coding in C or transforming with Cython 
+The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
+Methods tried: random variation method and a controlled shifting method
+
+Parallelization techniques: OpenACC, Prange, and OpenMP 
+
+Base line blood flow simulation model: Hodgkin-Huxley 
+
+Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer 
+
+Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
 Benchmarking:  
 
