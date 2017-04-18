@@ -8,7 +8,7 @@ For this project, in order to assist in more efficient and productive research t
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
-Methods tried: random variation method and a controlled shifting method
+Methods tried: random variation method and a controlled shifting method (add in math) 
 
 Parallelization techniques: OpenACC, Prange, and OpenMP 
 
