@@ -1,24 +1,26 @@
 #Output is "full_data" containing voltages at time intervals.
 
+import cython
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-# from cython.parallel import prange 
+from cython.parallel import prange, parallel 
 
+@cython.boundscheck(False)
 #Constants
-timestep = 10**(-2)         #How many computations per ms of data
-L = 3.0                     #Length of the heart fiber in cm
-N = 300                     #Number of "cells" in the fiber
-spacestep = L/float(N)      #cm size per array
-v_crit = .13                #Coefficient for voltage model
-t_in = .1                   #Coefficient for cell gate model
-t_out = 2.4                 #""
-t_open = 130.0              #""
-t_close = 150.0             #""
-K = .001                    #Coefficient for numerical stability
-BCL = 400.0                 #Mean of heart rate
-sd = 20.0                   #SD of heart rate
+cdef double timestep = 10**(-2)         #How many computations per ms of data
+cdef double L = 3.0                     #Length of the heart fiber in cm
+cdef int N = 300                     #Number of "cells" in the fiber
+cdef double spacestep = L/float(N)      #cm size per array
+cdef double v_crit = .13                #Coefficient for voltage model
+cdef double t_in = .1                   #Coefficient for cell gate model
+cdef double t_out = 2.4                 #""
+cdef double t_open = 130.0              #""
+cdef double t_close = 150.0             #""
+cdef double K = .001                    #Coefficient for numerical stability
+cdef double BCL = 400.0                 #Mean of heart rate
+cdef double sd = 20.0                   #SD of heart rate
 
 #Resolution variable
 #Determines how often to produce plot of voltage
@@ -76,9 +78,9 @@ def main(T_output):
     L_var = rand()                      #determines next pacemaker pulse time
     R_var = rand()
 
-    T = int(T_output/timestep)          #number of ms to compute divided by granularity
+    cdef int T = int(T_output/timestep)          #number of ms to compute divided by granularity
 
-    frames = math.floor(T/resolution)   #number of plots to be created
+    cdef int frames = math.floor(T/resolution)   #number of plots to be created
 
     #Conditions must satisfy this for numerical stability
     if (K*timestep)/(spacestep**2) > .5:
@@ -86,14 +88,14 @@ def main(T_output):
         return 0
     
     #data arrays for voltage
-    width = N+1
+    cdef int width = N+1
     
-    V_old = [0 for x in range(width)]
-    V_new = [0 for x in range(width)]
+    cdef double V_old = [0 for x in range(width)]
+    cdef double V_new = [0 for x in range(width)]
     
     #data arrays for gate function
-    H_old = [0 for x in range(width)]
-    H_new = [0 for x in range(width)]
+    cdef double H_old = [0 for x in range(width)]
+    cdef double H_new = [0 for x in range(width)]
     
     #fill in the first array with the initial voltage
     #do once each for N cells
@@ -103,7 +105,7 @@ def main(T_output):
     
     V_new = V_old
     
-    ary1 = []
+    cdef double ary1 = []
     for i in range(0,N+1):
         ary1.append(i*spacestep)
     
@@ -113,7 +115,7 @@ def main(T_output):
     
     print "Loading frame:"
 
-    m = 0
+    cdef int m = 0
     
     while m < T+1:
         #occasionally append voltage data in txt file
@@ -124,7 +126,7 @@ def main(T_output):
                 s = str(V_old[i]) + ' '
                 f.write(s)
             f.write('\n')
-            n = int(m/resolution)
+            cdef int n = int(m/resolution)
             # plt.savefig('data_%d.png'%(n,))
             # plt.gcf().clear()
 
@@ -132,8 +134,9 @@ def main(T_output):
             
         #prange here 
         #fill in interior grid points
-        for k in range(1,N):
-            V_new[k] = stdupdate_v(k,V_old,H_old)
+        with nogil, parallel(num_threads=4)
+            for k in prange(1,N, schedule ='dynamic'):
+                V_new[k] = stdupdate_v(k,V_old,H_old)
             
         #fill in left boundary
         V_new[0] = lupdate_v(k,V_old,H_old)
@@ -142,8 +145,9 @@ def main(T_output):
         
         #prange here 
         #update door constants
-        for k in range(0,N+1):    
-            H_new[k] = update_h(V_old[k],H_old[k])
+        with nogil, parallel(num_threads=4)
+            for k in prange(0,N+1, schedule='dynamic'):    
+                H_new[k] = update_h(V_old[k],H_old[k])
          
         #if time for a new pump, add voltage   
         if int((m+1)*timestep) == L_var:
