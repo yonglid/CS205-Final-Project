@@ -46,7 +46,7 @@ Methods Implemented in Research:
 
 2) Random Variation method: In this method, the two pacemakers maintain the same average pacemaker rate but with some standard deviation between each pump. This hypothesis requires more testing in order to determine whether reversals can occur and with which parameters (such as diffusion rate, fiber length, number of cells, etc.) this model can be sustained, all while being biologically consistent. This parameter heavy model is the reason why parallelising this code is important. Multiple tests must be run with different constants in order to determine whether this model can prove to be sufficient.
 
-Parallelization techniques: OpenACC, Prange, and OpenMP 
+Parallelization techniques: OpenACC, OpenACC P100 (SPMD), Prange, and OpenMP 
 
 Base line blood flow simulation model: Hodgkin-Huxley 
 
