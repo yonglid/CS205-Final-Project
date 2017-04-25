@@ -10,9 +10,9 @@ The main point was to allow for less time spent running the code and more time l
 
 Basic Physiological Equations
 
-In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Laura Miller), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
+In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
 
-There are two main components that govern the propagation of waves within the heart, the first is the processes of individual heart cells and the second is diffusion between adjacent heart cells. When dealing with individual heart cells, there are two differential equations that govern how electric potential is stored (Mitchell and Schaeffer). The first is the primary equation for voltage:
+Based on the Mitchell-Schaeffer model, there are two main components that govern the propagation of waves within the heart, the first is the processes of individual heart cells and the second is diffusion between adjacent heart cells. When dealing with individual heart cells, there are two differential equations that govern how electric potential is stored. The first is the primary equation for voltage (Cain and Schaeffer):
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=dv/dt&space;=&space;inward&space;current-&space;outward&space;current" target="_blank"><img src="https://latex.codecogs.com/gif.latex?dv/dt&space;=&space;inward&space;current-&space;outward&space;current" title="dv/dt = inward current- outward current" /></a>
 
@@ -28,7 +28,7 @@ The second important component is the diffusion between cells. The diffusion equ
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{du}{dt}&space;=&space;k&space;\frac{d^2u}{dx^2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{du}{dt}&space;=&space;k&space;\frac{d^2u}{dx^2}" title="\frac{du}{dt} = k \frac{d^2u}{dx^2}" /></a>
 
-Where k is another physiological constant. Diffusion will be a factor of the cell itself, and the cells immediately adjacent to it.  We can estimate the change by diffusion with the following equation:
+Where k is another physiological constant. Diffusion will be a factor of the cell itself, and the cells immediately adjacent to it.  We can estimate the change by diffusion using the standard Heat Equation:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=K&space;(\frac{u_{k-1}^m&space;-&space;2u_{k}^m&space;&plus;&space;u_{k&plus;1}^m&space;}{(\Delta&space;x)^2})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?K&space;(\frac{u_{k-1}^m&space;-&space;2u_{k}^m&space;&plus;&space;u_{k&plus;1}^m&space;}{(\Delta&space;x)^2})" title="K (\frac{u_{k-1}^m - 2u_{k}^m + u_{k+1}^m }{(\Delta x)^2})" /></a>
 
@@ -86,3 +86,21 @@ OpenACC: (Step = 10^-2, L=3.0, N=300)
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
 
 ![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
+
+Citations
+
+B. J. Krijgsman, Biological Reviews, 31, 288, 1956
+
+C. C. Mitchell, D. G. Schaeffer, Bulletin of Mathematical Biology, 65, 767, 2003
+
+L. D. Waldrop and L. Miller, Journal of Experimental Biology, 218, 2753, 2015
+
+J. W. Cain, D. G. Schaeffer, SIAM Review 48, 537, 2006
+
+J. W. Cain, E. G. Tolacheva, D. G. Shaeffer, and D. J. Gauthier, Physical Review E70, 061906, 2004
+
+M. E. Kriebel, Journal of General Physiology, 50, 2097, 1967
+
+M. E. Kriebel, Biological Bulletin, 134, 434, 1968
+
+C. H. Luo and Y. Rudy, Circulation Research 74, 1071, 1994
