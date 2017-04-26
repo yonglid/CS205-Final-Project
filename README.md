@@ -54,31 +54,33 @@ Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-Benchmarking:  
+Benchmarking:
 
-Step = 10^-2, L=3.0, N=300  
+Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
+
+(Step = 10^-2, L=3.0cm, N=300) 
+
+Python Serial 
 
 10ms, res=10: time=1.06  
-
 100ms, res=10: time=6.02  
-
 100ms, res=100: time=5.76  
-
 1000ms, res=600: time=52.2  
-
 10000ms, res=600: time=527.0  (GFlop/s: .016)
-
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
+Cython Parallel
 
-C Implementation: (Step = 10^-2, L=3.0, N=300)  
+
+
+C Implementation 
 
 30000ms, res=600, time=125.010000 (GFlop/s: 0.203)  
 60000ms, res=600, time=307.410000 (GFlop/s: 0.165)  
 150000ms, res=600, time=856.340000 (GFlop/s: 0.148)  
 500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)  
 
-OpenACC: (Step = 10^-2, L=3.0, N=300)  
+OpenACC 
 
 30000ms, res=600, time=61.090000 (GFlop/s: 0.415)  
 60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
@@ -86,6 +88,18 @@ OpenACC: (Step = 10^-2, L=3.0, N=300)
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
 
 ![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
+
+(Step = 10^-2, L=3.0cm, N=600)
+
+Python Serial 
+
+10ms, res=10: time=1.02  
+100ms, res=10: time=10.04  
+100ms, res=100: time=8.28 
+1000ms, res=600: time=87.96  
+10000ms, res=600: time=784.6  (GFlop/s: .0215)
+30000ms, res=600: time=2480.43  (GFlop/s: .0203)
+
 
 Citations
 
