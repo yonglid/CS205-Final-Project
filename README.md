@@ -145,7 +145,7 @@ The basic process of Lattice-Boltzmann is illustrated below:
 *Relaxation phase: Determines the microscopic dynamics towards local equilibrium and macroscopic transport coefficients (tune to get desired dynamics)*
 
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM7.png)
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM6.png)
 *Repeat transport and relaxation*
 
 
