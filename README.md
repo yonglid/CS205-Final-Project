@@ -71,6 +71,12 @@ Step = 10^-2, L=3.0, N=300
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
 
+Cython Implementation (Step = 10^-2, L=3.0, N=300)
+
+10000ms, res=600: time=463.6690833568573 (GFlop/s: 0.018)
+30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
+60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016))
+
 C Implementation: (Step = 10^-2, L=3.0, N=300)  
 
 30000ms, res=600, time=125.010000 (GFlop/s: 0.203)  
@@ -84,6 +90,12 @@ OpenACC: (Step = 10^-2, L=3.0, N=300)
 60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
 150000ms, res=600, time=308.050000 (GFlop/s: 0.412)  
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
+
+OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
+
+30000ms, res=600, time= (GFlop/s: )  
+60000ms, res=600, time=103.770000 (GFlop/s: 0.489)
+150000ms, res=600, time=
 
 ![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
 
