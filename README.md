@@ -1,7 +1,7 @@
 **Table of Contents** 
 
 - [CS205-Final-Project](#)
-- [Advanced Features](#)
+- [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
 
 
 # CS205-Final-Project
