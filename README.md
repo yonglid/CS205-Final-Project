@@ -1,6 +1,12 @@
 **Table of Contents** 
 
 - [CS205-Final-Project](#)
+- [Introduction] (https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#introduction)
+  * [Background: Basic Physiological Equations]()
+  * [Potential Hypotheses for Blood Flow Reversal]()
+  * [Problem to tackle]()
+- [Technical description of parallel software solution]()
+- [Appliciable scaling plots (benchmarking)]()
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
   * [Lattice-Boltzmann](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#modeling-the-lattice-boltzmann-model-lbm)
 
@@ -84,7 +90,7 @@ Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-### Appliciable scaling plots (benchmarking):
+# Appliciable scaling plots (benchmarking):
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
 
