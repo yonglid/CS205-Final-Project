@@ -1,10 +1,12 @@
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+**Table of Contents** 
 
 - [CS205-Final-Project](#)
 - [Advanced Features](#)
 
 
 # CS205-Final-Project
+<p style="font-family:Courier; color:Blue; font-size: 20px;">This text has the font Courier, is Blue, and 20px.</p>
+
 Final Project
 Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas 
 
