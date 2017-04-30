@@ -6,18 +6,19 @@
 
 
 # CS205-Final-Project
-<p style="font-family:Courier; color:Blue; font-size: 20px;">This text has the font Courier, is Blue, and 20px.</p>
 
 Final Project
 Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas 
 
-Project research: The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
+### Introduction
+
+The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
 
 One major issue with the research was the length of simulation generation. For each 30 second video, about 45 minutes of computations were needed, which is much too long when multiple parameters are needed to be tested. For this project, in order to assist in more efficient and productive research to test out more hypotheses on this phenomenon, the team implemented various parallelisations in order to drastically speed up the simulations. The python code was coded into C code, writing data points of voltage in correlation with time into a file, which is taken in by a python program to create data plots for visualization/simulation. 
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
-Basic Physiological Equations
+### Background: Basic Physiological Equations
 
 In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
 
@@ -49,21 +50,41 @@ Where K is the diffusion coefficient (.001 for most biological cases), and u is 
 
 Where N is the number of cells within the heart fiber.
 
-Methods Implemented in Research:
+### Methods Implemented in Research:
 
 1) Controlled Shifting method: In this hypothesis, the two pacemakers at the ends of the heart fiber do not have the same rate of heart pumping. At the beginning, one pacemaker will begin with a slow rate and the other begins with a fast rate. After each pump, the slow pacemaker will increase speed by a small amount and the fast pacemaker will decrease its speed. Naturally, the side with the faster rate will dominate initially, however they will eventually trade dominance and the blood flow will change. Intuitively, this hypothesis will clearly generate blood flow reversals, however the main goal was to see if the simulations generated were realistic.
 
 2) Random Variation method: In this method, the two pacemakers maintain the same average pacemaker rate but with some standard deviation between each pump. This hypothesis requires more testing in order to determine whether reversals can occur and with which parameters (such as diffusion rate, fiber length, number of cells, etc.) this model can be sustained, all while being biologically consistent. This parameter heavy model is the reason why parallelising this code is important. Multiple tests must be run with different constants in order to determine whether this model can prove to be sufficient.
 
+### Problem to tackle
+
+
+
+### Technical description of parallel software solution
+
+Parallelize the code 
+- SIMT parallelization - (manycore throughput) - single instruction, multiple thread 
+ - Python -> Cython -> Prange
+ - Python -> C -> OpenACC (compiler: pgi) 
+  - Future fix/tests: Need smaller time step for more accuracy - we can now do this with parallelized version (took too long before) 
+  - Added directives 
+
+Separated calculation of voltage points and creation of plots for simulation 
+
+ - Code for calculation is parallelized and points written into a file 
+ - Separate visualization python code takes voltage points file in as input 
+
+
+
 Parallelization techniques: OpenACC, OpenACC P100 (SPMD), Prange, and OpenMP 
 
-Base line blood flow simulation model: Hodgkin-Huxley 
+Base line blood flow simulation model: OpenMP+MPI
 
 Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer 
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-Benchmarking:
+### Appliciable scaling plots (benchmarking):
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
 
@@ -135,7 +156,7 @@ Overall, there are a few advantages of using LBM to model blood flow.
 Boltzmann’s theory of kinetic gasses essentially says that gasses or fluids can be regarded as small particles with random motions. This idea is simplified by the Lattice-Boltzmann method is a simplification of Boltzmann’s original idea by restricting the number of particles and confining the velocity vectors to the nodes of a lattice. Thus, LBM is an ideal balance between microscopic (bottom-up) and macroscopic (top-down) molecular dynamic simulations.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png)
-**Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model.
+*Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model.*
 
 We focus on the two-dimensional blood flow simulation by using LBM to model Navier stokes.
 
