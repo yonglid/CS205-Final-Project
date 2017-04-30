@@ -122,7 +122,7 @@ Python Serial
 
 # Advanced Features
 
-###Modeling: The Lattice Boltzmann Model (LBM)
+### Modeling: The Lattice Boltzmann Model (LBM)
 
 To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
 
