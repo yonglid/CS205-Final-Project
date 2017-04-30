@@ -2,7 +2,7 @@
 
 - [CS205-Final-Project](#)
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
- -[Lattice-Boltzmann]
+ -[Lattice-Boltzmann](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#modeling-the-lattice-boltzmann-model-lbm)
 
 
 # CS205-Final-Project
