@@ -1,13 +1,14 @@
 **Table of Contents** 
 
 - [CS205-Final-Project](#)
-- [Introduction] (https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#introduction)
+- [Introduction](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#introduction)
   * [Background: Basic Physiological Equations]()
-  * [Potential Hypotheses for Blood Flow Reversal]()
-  * [Problem to tackle]()
-- [Technical description of parallel software solution]()
-- [Appliciable scaling plots (benchmarking)]()
+  * [Potential Hypotheses for Blood Flow Reversal](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#potential-hypotheses-for-blood-flow-reversal)
+  * [Problem to tackle](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#problem-to-tackle)
+- [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
+- [Appliciable scaling plots (benchmarking)](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#appliciable-scaling-plots-benchmarking)
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
+  * [p100](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#p100)
   * [Lattice-Boltzmann](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#modeling-the-lattice-boltzmann-model-lbm)
 
 
