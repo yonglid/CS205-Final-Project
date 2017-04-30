@@ -10,7 +10,7 @@
 Final Project
 Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas 
 
-### Introduction
+# Introduction
 
 The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
 
@@ -18,7 +18,7 @@ One major issue with the research was the length of simulation generation. For e
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
-### Background: Basic Physiological Equations
+# Background: Basic Physiological Equations
 
 In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
 
@@ -50,7 +50,7 @@ Where K is the diffusion coefficient (.001 for most biological cases), and u is 
 
 Where N is the number of cells within the heart fiber.
 
-### Methods Implemented in Research:
+### Potential Hypotheses for Blood Flow Reversal
 
 1) Controlled Shifting method: In this hypothesis, the two pacemakers at the ends of the heart fiber do not have the same rate of heart pumping. At the beginning, one pacemaker will begin with a slow rate and the other begins with a fast rate. After each pump, the slow pacemaker will increase speed by a small amount and the fast pacemaker will decrease its speed. Naturally, the side with the faster rate will dominate initially, however they will eventually trade dominance and the blood flow will change. Intuitively, this hypothesis will clearly generate blood flow reversals, however the main goal was to see if the simulations generated were realistic.
 
@@ -60,7 +60,7 @@ Where N is the number of cells within the heart fiber.
 
 
 
-### Technical description of parallel software solution
+# Technical description of parallel software solution
 
 Parallelize the code 
 - SIMT parallelization - (manycore throughput) - single instruction, multiple thread 
