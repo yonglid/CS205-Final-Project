@@ -3,7 +3,7 @@
 - [CS205-Final-Project](#)
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
 
-
+### <span style="color:orange">Part A </span>
 # CS205-Final-Project
 <p style="font-family:Courier; color:Blue; font-size: 20px;">This text has the font Courier, is Blue, and 20px.</p>
 
