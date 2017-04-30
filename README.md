@@ -2,7 +2,7 @@
 
 - [CS205-Final-Project](#)
 - [Introduction](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#introduction)
-  * [Background: Basic Physiological Equations]()
+  * [Background: Basic Physiological Equations](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#background-basic-physiological-equations)
   * [Potential Hypotheses for Blood Flow Reversal](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#potential-hypotheses-for-blood-flow-reversal)
   * [Problem to tackle](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#problem-to-tackle)
 - [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
