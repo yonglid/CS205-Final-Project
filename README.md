@@ -1,3 +1,9 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [CS205-Final-Project](#)
+- [Advanced Features](#)
+
+
 # CS205-Final-Project
 Final Project
 Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas 
