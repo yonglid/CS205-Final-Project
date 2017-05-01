@@ -158,6 +158,7 @@ Python Serial
 ### Modeling: The Lattice Boltzmann Model (LBM)
 
 To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
+[Click here for LBM code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
 
 Overall, there are a few advantages of using LBM to model blood flow. 
 
@@ -191,7 +192,7 @@ The basic process of Lattice-Boltzmann is illustrated below:
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM6.png)
 **_Repeat transport and relaxation_**
 
-The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. One reason for this could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
+Results: The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. One reason for this could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png)
 
