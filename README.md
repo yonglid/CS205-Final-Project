@@ -124,25 +124,47 @@ We can see that overall, the Python implementation has very poor performance and
 
 C Implementation: (Step = 10^-2, L=3.0, N=300)  
 
+N=300
 30000ms, res=600, time=125.010000 (GFlop/s: 0.203)  
 60000ms, res=600, time=307.410000 (GFlop/s: 0.165)  
 150000ms, res=600, time=856.340000 (GFlop/s: 0.148)  
 500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)  
 
-OpenACC 
+N = 600
+30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
+60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
+150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
+500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
 
+OpenACC: 
+
+N = 300
 30000ms, res=600, time=61.090000 (GFlop/s: 0.415)  
 60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
 150000ms, res=600, time=308.050000 (GFlop/s: 0.412)  
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
 
+N = 600
+30000ms, res=600, time=118.470000 (GFlop/s: 0.427)
+60000ms, res=600, time=238.150000 (GFlop/s: 0.425)
+150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
+
+OpenACC + MPI:
+60000ms, res=600, time= (GFlop/s: )
+
 OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
 
+N = 300
 30000ms, res=600, time=55.990000 (GFlop/s: 0.453)  
 60000ms, res=600, time=103.770000 (GFlop/s: 0.489)
 150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
 
+N = 600
+30000ms, res=600, time=
+60000ms, res=600, time=
+150000ms, res=600, time=
+500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
 

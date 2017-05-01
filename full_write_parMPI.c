@@ -144,6 +144,7 @@ int main(int argc, char **argv) {
 	MPI_Init(&argc,&argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	MPI_Bcast(V_old,width,MPI_FLOAT,0,MPI_COMM_WORLD);
 
 	while (m < T+1) {
 
@@ -157,7 +158,7 @@ int main(int argc, char **argv) {
 
 
 		// fill in interior grid points
-		#pragma acc parallel loop//for shared(V_new, N, V_old, H_old)
+		#pragma acc parallel loop 
 		for (int i = 1; i < N; i++) {
 			V_new[i] = stdupdate_v(i,V_old,H_old);
 		}
@@ -167,13 +168,13 @@ int main(int argc, char **argv) {
 		// fill in right boundary
 		V_new[N] = rupdate_v(V_old,H_old);
 
-		#pragma acc parallel loop //for shared(H_new, width, V_old, H_old)
+		#pragma acc parallel loop 
 		for (int i = 0; i < width; i++) {
 			H_new[i] = update_h(V_old[i],H_old[i]);
 		}
 
 		if ((int)((m+1)*timestep) == R_var) {
-			#pragma acc parallel loop //for shared(V_new, N, width)
+			#pragma acc parallel loop 
 			for (int i = N-4; i < width; i++) {
 				V_new[i] = 0.8;
 			}
