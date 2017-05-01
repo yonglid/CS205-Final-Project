@@ -118,6 +118,7 @@ Cython Implementation (Step = 10^-2, L=3.0, N=300)
 60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016))
 
 ![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png)
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="196">
 ![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png)
 
 We can see that overall, the Python implementation has very poor performance and the Cython parallelisation does very little to actually improve the throughput. 
