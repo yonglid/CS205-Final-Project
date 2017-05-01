@@ -96,7 +96,7 @@ Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-# Appliciable scaling plots (benchmarking):
+# Applicable scaling plots (benchmarking):
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
 
@@ -111,13 +111,16 @@ Python Serial
 10000ms, res=600: time=527.0  (GFlop/s: .016)
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
-Cython Parallel
-
 Cython Implementation (Step = 10^-2, L=3.0, N=300)
 
 10000ms, res=600: time=463.6690833568573 (GFlop/s: 0.018)
 30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
 60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016))
+
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png" width="512">
+
+We can see that overall, the Python implementation has very poor performance and the Cython parallelisation does very little to actually improve the throughput. 
 
 C Implementation: (Step = 10^-2, L=3.0, N=300)  
 
@@ -140,7 +143,10 @@ OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
 150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
 
-![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
+
+We can see that the C implementation already provides much faster simulation generation than the Python code does. Additionally, the parallelisation of the code produced much better speedups that the parallelisation of the Python code. Using OpenACC and then OpenACC on the NVIDIA Tesla P100, our throughput drastically increased and the computation time was at worst, halved.
 
 (Step = 10^-2, L=3.0cm, N=600)
 
@@ -154,7 +160,7 @@ Python Serial
 30000ms, res=600: time=2480.43  (GFlop/s: .0203)
 
 # Advanced Features
-
+### p100
 ### Modeling: The Lattice Boltzmann Model (LBM)
 
 To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
@@ -168,27 +174,28 @@ Overall, there are a few advantages of using LBM to model blood flow.
 Boltzmann’s theory of kinetic gasses essentially says that gasses or fluids can be regarded as small particles with random motions. This idea is simplified by the Lattice-Boltzmann method is a simplification of Boltzmann’s original idea by restricting the number of particles and confining the velocity vectors to the nodes of a lattice. Thus, LBM is an ideal balance between microscopic (bottom-up) and macroscopic (top-down) molecular dynamic simulations.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png)
-*Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model.*
+**_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model._**
 
 We focus on the two-dimensional blood flow simulation by using LBM to model Navier stokes.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM2.png)
-*Lattice scheme to model Navier-Stokes.*
+
+**_Lattice scheme to model Navier-Stokes._**
 
 The basic process of Lattice-Boltzmann is illustrated below:
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM3.png)
-*Each point on the lattice has particles with discrete velocities.*
+**_Each point on the lattice has particles with discrete velocities._**
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM4.png)
-*Transport phase: shift of data along each independent velocity vector.*
+**_Transport phase: shift of data along each independent velocity vector._**
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM5.png)
-*Relaxation phase: Determines the microscopic dynamics towards local equilibrium and macroscopic transport coefficients (tune to get desired dynamics)*
+**_Relaxation phase: Determines the microscopic dynamics towards local equilibrium and macroscopic transport coefficients (tune to get desired dynamics)_**
 
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM6.png)
-*Repeat transport and relaxation*
+**_Repeat transport and relaxation_**
 
 
 Citations

@@ -1,67 +1,138 @@
+from __future__ import print_function
+from __future__ import division
+"""
+test: True
+"""
+from six.moves import range
+import numpy as np
+import sympy as sp
 
-# coding: utf-8
+#pyLBM is used to model Navier stokes (which is defined as a D2_Q9 lattice)
 
-# In[1]:
+import pyLBM
 
-# Lattie Boltzman simulation
-#2D flow around a cylinder
+X, Y, LA = sp.symbols('X, Y, LA')
+rho, qx, qy = sp.symbols('rho, qx, qy')
 
+def bc_in(f, m, x, y, width, height, max_velocity, grad_pressure):
+    m[rho] = (x-0.5*width) * grad_pressure
+    m[qx] = max_velocity * (1. - 4.*y**2/height**2)
 
-from numpy import *; from numpy.linalg import *
-import matplotlib.pyplot as plt; from matplotlib import cm
-# Flow definition 
-maxIter = 200000 # Total number of time iterations.
-Re      = 220.0  # Reynolds number.
-nx = 520; ny = 180; ly=ny-1.0; q = 9 # Lattice dimensions and populations.
-cx = nx/4; cy=ny/2; r=ny/9;          # Coordinates of the cylinder.
-uLB     = 0.04                       # Velocity in lattice units.
-nulb    = uLB*r/Re; omega = 1.0 / (3.*nulb+0.5); # Relaxation parameter.
-
-# Lattice Constants 
-c = array([(x,y) for x in [0,-1,1] for y in [0,-1,1]]) # Lattice velocities.
-t = 1./36. * ones(q)                                   # Lattice weights.
-t[asarray([norm(ci)<1.1 for ci in c])] = 1./9.; t[0] = 4./9.
-noslip = [c.tolist().index((-c[i]).tolist()) for i in range(q)] 
-i1 = arange(q)[asarray([ci[0]<0  for ci in c])] # Unknown on right wall.
-i2 = arange(q)[asarray([ci[0]==0 for ci in c])] # Vertical middle.
-i3 = arange(q)[asarray([ci[0]>0  for ci in c])] # Unknown on left wall.
-
-#Function Definitions
-sumpop = lambda fin: sum(fin,axis=0) # Helper function for density computation.
-def equilibrium(rho,u):              # Equilibrium distribution function.
-    cu   = 3.0 * dot(c,u.transpose(1,0,2))
-    usqr = 3./2.*(u[0]**2+u[1]**2)
-    feq = zeros((q,nx,ny))
-    for i in range(q): feq[i,:,:] = rho*t[i]*(1.+cu[i]+0.5*cu[i]**2-usqr)
-    return feq
-
-# Setup: cylindrical obstacle and velocity inlet with perturbation
-obstacle = fromfunction(lambda x,y: (x-cx)**2+(y-cy)**2<r**2, (nx,ny))
-vel = fromfunction(lambda d,x,y: (1-d)*uLB*(1.0+1e-4*sin(y/ly*2*pi)),(2,nx,ny))
-feq = equilibrium(1.0,vel); fin = feq.copy()
-
-# Main time loop 
-for time in range(maxIter):
-    fin[i1,-1,:] = fin[i1,-2,:] # Right wall: outflow condition.
-    rho = sumpop(fin)           # Calculate macroscopic density and velocity.
-    u = dot(c.transpose(), fin.transpose((1,0,2)))/rho
-
-    u[:,0,:] =vel[:,0,:] # Left wall: compute density from known populations.
-    rho[0,:] = 1./(1.-u[0,0,:]) * (sumpop(fin[i2,0,:])+2.*sumpop(fin[i1,0,:]))
-
-    feq = equilibrium(rho,u) # Left wall: Zou/He boundary condition.
-    fin[i3,0,:] = fin[i1,0,:] + feq[i3,0,:] - fin[i1,0,:]
-    fout = fin - omega * (fin - feq)  # Collision step.
-    for i in range(q): fout[i,obstacle] = fin[noslip[i],obstacle]
-    for i in range(q): # Streaming step.
-        fin[i,:,:] = roll(roll(fout[i,:,:],c[i,0],axis=0),c[i,1],axis=1)
- 
-    if (time%100==0): # Visualization
-        plt.clf(); plt.imshow(sqrt(u[0]**2+u[1]**2).transpose(),cmap=cm.Reds)
-        plt.savefig("vel."+str(time/100).zfill(4)+".png")
+def bc_out(f, m, x, y, width, grad_pressure):
+    m[rho] = (x-0.5*width) * grad_pressure
 
 
-# In[ ]:
+#Define the model. In order to accelerate the simulation, we can use Cython to generate a more efficient code (via pyLBM cython generator)
+
+def run(dx, Tf, generator="cython", sorder=None, withPlot=True):
+    """
+    Parameters
+    ----------
+
+    dx: double
+        spatial step
+
+    Tf: double
+        final time
+
+    generator: pyLBM generator
+
+    sorder: list
+        storage order
+
+    withPlot: boolean
+        if True plot the solution otherwise just compute the solution
+
+    """
+    # parameters
+    la = 1. # velocity of the scheme
+    width = 2 #width of the domain
+    height = 1 #height of the domain
+    max_velocity = 0.1 #max velocity
+    rhoo = 1. #mean value of the density
+    mu   = 0.00185 #shear viscosity
+    zeta = 1.e-2   #bulk viscovity
+    #initialization
+    xmin, xmax, ymin, ymax = 0.0, width, -0.5*height, 0.5*height
+    grad_pressure = - max_velocity * 8.0 / (height)**2 * 3.0/(la**2*rhoo) * mu
+    dummy = 3.0/(la*rhoo*dx)
+    s1 = 1.0/(0.5+zeta*dummy)
+    s2 = 1.0/(0.5+mu*dummy)
+    s  = [0.,0.,0.,s1,s1,s1,s1,s2,s2]
+    dummy = 1./(LA**2*rhoo)
+    qx2 = dummy*qx**2
+    qy2 = dummy*qy**2
+    q2  = qx2+qy2
+    qxy = dummy*qx*qy
 
 
 
+#Stencil of 2D Navier-stokes lattice
+    dico = {
+        'box':{'x':[xmin, xmax], 'y':[ymin, ymax], 'label':[2, 1, 0, 0]},
+        'space_step':dx,
+        'scheme_velocity':la,
+        'schemes':[{'velocities':list(range(9)),
+                    'polynomials':[1,
+                             LA*X, LA*Y,
+                             3*(X**2+Y**2)-4,
+                             0.5*(9*(X**2+Y**2)**2-21*(X**2+Y**2)+8),
+                             3*X*(X**2+Y**2)-5*X, 3*Y*(X**2+Y**2)-5*Y,
+                             X**2-Y**2, X*Y],
+                    'relaxation_parameters':s,
+                    'equilibrium':[rho,
+                              qx, qy,
+                              -2*rho + 3*q2,
+                              rho - 3*q2,
+                              -qx/LA, -qy/LA,
+                              qx2 - qy2, qxy],
+                    'conserved_moments': [rho, qx, qy],
+                    'init':{rho: 1.,
+                            qx: 0.,
+                            qy: 0.
+                            },
+                    }],
+        'parameters':{'LA':la},
+        'boundary_conditions':{
+            0:{'method':{0: pyLBM.bc.Bouzidi_bounce_back}},
+            1:{'method':{0: pyLBM.bc.Neumann_x}},
+            2:{'method':{0: pyLBM.bc.Bouzidi_bounce_back},
+               'value':(bc_in, (width, height, max_velocity, grad_pressure))}
+        },
+        'generator': generator,
+    }
+
+    sol = pyLBM.Simulation(dico, sorder=sorder)
+
+    if withPlot:
+        # init viewer
+        viewer = pyLBM.viewer.matplotlibViewer
+        fig = viewer.Fig()
+        ax = fig[0]
+
+        nt = int(sol.domain.shape_in[0]/2)
+        y = sol.domain.y
+
+        l1 = ax.plot(y, sol.m[qx][nt], color='r', marker='+', label='LBM')[0]
+        l2 = ax.plot(y, rhoo*max_velocity * (1.-4.*y**2/height**2), color='k', label='exact')
+        ax.title = 'Velocity at t = {0:f}'.format(sol.t)
+        ax.legend()
+
+        def update(iframe):
+            sol.one_time_step()
+            l1.set_data(y, sol.m[qx][nt])
+            ax.title = 'Velocity at t = {0:f}'.format(sol.t)
+
+        # run the simulation
+        fig.animate(update, interval=1)
+        fig.show()
+    else:
+        while sol.t < Tf:
+            sol.one_time_step()
+
+    return sol
+
+if __name__ == '__main__':
+    dx = 1./128
+    Tf = 20
+    run(dx, Tf)
