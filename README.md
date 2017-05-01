@@ -115,7 +115,7 @@ Language: Current code in Python from Peter's research project - re-coding in C 
 
 # Application scaling plots (benchmarking):
 
-Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
+Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell.
 
 (Step = 10^-2, L=3.0cm, N=300) 
 
@@ -182,10 +182,13 @@ N = 600
 60000ms, res=600, time=
 150000ms, res=600, time=
 500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
+
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
 
 We can see that the C implementation already provides much faster simulation generation than the Python code does. Additionally, the parallelisation of the code produced much better speedups that the parallelisation of the Python code. Using OpenACC and then OpenACC on the NVIDIA Tesla P100, our throughput drastically increased and the computation time was at worst, halved.
+
+In order to better show the effects of the parallelisation, we doubled the value N, which would increase the computation in the areas that we had parallelised. An N of 600 works well and maintains good biological accuracy with the hearts cells now being 50 micrometers in length. We did not increase the N any more than this due to the necessity of numerical stability. If .001(cellsize)/(timestep^2) > 1/2, then the numerical approximations that we use will diverge in value and not provide accurate simulations. Using a value of N which is larger than 600 would necessitate a smaller timestep, which would drastically increase computation time and slow down the code more than the parallelisation would speed it up.
 
 (Step = 10^-2, L=3.0cm, N=600)
 
@@ -197,6 +200,16 @@ Python Serial
 1000ms, res=600: time=87.96  
 10000ms, res=600: time=784.6  (GFlop/s: .0215)
 30000ms, res=600: time=2480.43  (GFlop/s: .0203)
+
+Cython Implementation
+
+C Implementation: (Step = 10^-2, L=3.0, N=600) 
+30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
+60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
+150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
+500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
+
+
 
 # Advanced Features
 ### p100
