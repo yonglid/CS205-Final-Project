@@ -144,7 +144,7 @@ OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
 
 
 (Step = 10^-2, L=3.0cm, N=600)
