@@ -27,6 +27,23 @@ One major issue with the research was the length of simulation generation. For e
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
+* computational/baseline sequential algorithm
+The time complexity of modelling the reversal as in models,  is mainly dependent on the resolution of the model. For high fidelity simulation we need to increase the problem size N , to simulate 300000 ms .
+We reduce the complexity by parallelising in two models:
+
+##SIMT parallelization 
+
+Many-core througput oriented GPU architectures:  Here we program first in SIMT for a GPU on Odyssey that gives us the first level of throughput improvement as shown in figure ...
+
+##SIMT parallelization P100 many-core
+We further increase the througput by programming in SIMT but for a higher throughput P100 GPU architectures. This enables us to perform more simulations....
+
+##Hybrid SPMD parallelization
+openacc + MPI (bcast) 
+
+* put thoroughplot with parallelization 
+* time complexity 
+* bcast for mpi 
 # Background: Basic Physiological Equations
 
 In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
@@ -96,7 +113,7 @@ Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-# Applicable scaling plots (benchmarking):
+# Application scaling plots (benchmarking):
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
 
