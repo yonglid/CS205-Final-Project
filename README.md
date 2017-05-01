@@ -117,9 +117,8 @@ Cython Implementation (Step = 10^-2, L=3.0, N=300)
 30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
 60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016))
 
-![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png)
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="196">
-![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png)
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png" width="512">
 
 We can see that overall, the Python implementation has very poor performance and the Cython parallelisation does very little to actually improve the throughput. 
 
@@ -144,7 +143,9 @@ OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
 150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
 
-![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png)
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup.png" width="512">
+
 
 (Step = 10^-2, L=3.0cm, N=600)
 
