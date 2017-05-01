@@ -96,7 +96,7 @@ Implemented blood flow simulation (with the least ODE's): Mitchell Schaffer
 
 Language: Current code in Python from Peter's research project - re-coding in C + transforming with Cython 
 
-# Appliciable scaling plots (benchmarking):
+# Applicable scaling plots (benchmarking):
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell. Using the larger values of N will allow the code to experience greater speedup.
 
@@ -111,13 +111,16 @@ Python Serial
 10000ms, res=600: time=527.0  (GFlop/s: .016)
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
-Cython Parallel
-
 Cython Implementation (Step = 10^-2, L=3.0, N=300)
 
 10000ms, res=600: time=463.6690833568573 (GFlop/s: 0.018)
 30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
 60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016))
+
+![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png)
+![alt tag](https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png)
+
+We can see that overall, the Python implementation has very poor performance and the Cython parallelisation does very little to actually improve the throughput. 
 
 C Implementation: (Step = 10^-2, L=3.0, N=300)  
 
@@ -158,7 +161,6 @@ Python Serial
 ### Modeling: The Lattice Boltzmann Model (LBM)
 
 To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
-[Click here for LBM code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
 
 Overall, there are a few advantages of using LBM to model blood flow. 
 
@@ -191,10 +193,6 @@ The basic process of Lattice-Boltzmann is illustrated below:
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM6.png)
 **_Repeat transport and relaxation_**
-
-Results: The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. One reason for this could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
-
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png)
 
 
 Citations
