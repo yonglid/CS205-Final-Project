@@ -10,7 +10,7 @@ int resolution = 600;
 float timestep = 0.01;
 float L = 3.0;
 int N = 300;
-float spacestep = 0.01; // adjust manually!!!
+float spacestep = 0.01;
 float v_crit = .13;
 float t_in = .1;
 float t_out = 2.4;
@@ -139,7 +139,11 @@ int main(int argc, char **argv) {
 	// start timer
 	clock_t begin = clock();
 
-	int iproc, nproc;
+	int numprocs, rank;
+
+	MPI_Init(&argc,&argv);
+	MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	while (m < T+1) {
 
@@ -153,32 +157,26 @@ int main(int argc, char **argv) {
 
 
 		// fill in interior grid points
-		MPI_Init(&argc,&argv);
 		#pragma acc parallel loop//for shared(V_new, N, V_old, H_old)
 		for (int i = 1; i < N; i++) {
 			V_new[i] = stdupdate_v(i,V_old,H_old);
 		}
-		MPI_Finalize()
 
 		// fill in left boundary
 		V_new[0] = lupdate_v(V_old,H_old);
 		// fill in right boundary
 		V_new[N] = rupdate_v(V_old,H_old);
 
-		MPI_Init(&argc,&argv);
 		#pragma acc parallel loop //for shared(H_new, width, V_old, H_old)
 		for (int i = 0; i < width; i++) {
 			H_new[i] = update_h(V_old[i],H_old[i]);
 		}
-		MPI_Finalize()
 
 		if ((int)((m+1)*timestep) == R_var) {
-			MPI_Init(&argc,&argv);
 			#pragma acc parallel loop //for shared(V_new, N, width)
 			for (int i = N-4; i < width; i++) {
 				V_new[i] = 0.8;
 			}
-			MPI_Finalize()
 			R_var = rand_fluc(BCL,sd) + R_var;
 		}
 
@@ -188,6 +186,8 @@ int main(int argc, char **argv) {
 
 		m += 1;
 	}
+
+	MPI_Finalize();
 
 	// end timer
 	clock_t end = clock();
