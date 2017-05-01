@@ -9,7 +9,7 @@ int resolution = 600;
 float timestep = 0.01;
 float L = 3.0;
 int N = 300;
-float spacestep = 0.01; // adjust manually!!!
+float spacestep = 0.01;
 float v_crit = .13;
 float t_in = .1;
 float t_out = 2.4;
@@ -189,5 +189,3 @@ int main(int argc, char **argv) {
 	
 	return(0);
 }
-
-// GFlop/s = (28*N+52)*(T_output/timestep)/10^9/exec_time
