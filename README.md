@@ -154,7 +154,7 @@ Python Serial
 30000ms, res=600: time=2480.43  (GFlop/s: .0203)
 
 # Advanced Features
-
+### p100
 ### Modeling: The Lattice Boltzmann Model (LBM)
 
 To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
@@ -168,27 +168,28 @@ Overall, there are a few advantages of using LBM to model blood flow.
 Boltzmann’s theory of kinetic gasses essentially says that gasses or fluids can be regarded as small particles with random motions. This idea is simplified by the Lattice-Boltzmann method is a simplification of Boltzmann’s original idea by restricting the number of particles and confining the velocity vectors to the nodes of a lattice. Thus, LBM is an ideal balance between microscopic (bottom-up) and macroscopic (top-down) molecular dynamic simulations.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png)
-*Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model.*
+**_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model._**
 
 We focus on the two-dimensional blood flow simulation by using LBM to model Navier stokes.
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM2.png)
-*Lattice scheme to model Navier-Stokes.*
+
+**_Lattice scheme to model Navier-Stokes._**
 
 The basic process of Lattice-Boltzmann is illustrated below:
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM3.png)
-*Each point on the lattice has particles with discrete velocities.*
+**_Each point on the lattice has particles with discrete velocities._**
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM4.png)
-*Transport phase: shift of data along each independent velocity vector.*
+**_Transport phase: shift of data along each independent velocity vector._**
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM5.png)
-*Relaxation phase: Determines the microscopic dynamics towards local equilibrium and macroscopic transport coefficients (tune to get desired dynamics)*
+**_Relaxation phase: Determines the microscopic dynamics towards local equilibrium and macroscopic transport coefficients (tune to get desired dynamics)_**
 
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM6.png)
-*Repeat transport and relaxation*
+**_Repeat transport and relaxation_**
 
 
 Citations
