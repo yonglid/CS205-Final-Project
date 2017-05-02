@@ -133,12 +133,6 @@ Since heart fibers range between 10 micrometers and 100 micrometers, we ran a fe
 
 #### Cython
 
-10000ms, res=600: time=463.6690833568573 (GFlop/s: 0.018)
-
-30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
-
-60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016)
-
 | Cython ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 10000 | 600 | 463.6690833568573 |0.018|
@@ -152,14 +146,6 @@ We can see that overall, the Python implementation has very poor performance and
 
 #### C Implementation
 
-30000ms, res=600, time=125.010000 (GFlop/s: 0.203)  
-
-60000ms, res=600, time=307.410000 (GFlop/s: 0.165)  
-
-150000ms, res=600, time=856.340000 (GFlop/s: 0.148)  
-
-500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)
-
 | C ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 30000 | 600 | 125.010000 |0.203|
@@ -168,14 +154,6 @@ We can see that overall, the Python implementation has very poor performance and
 | 500000 | 600 | 2986.510000 | 0.142|
 
 #### OpenACC
-
-30000ms, res=600, time=61.090000 (GFlop/s: 0.415)  
-
-60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
-
-150000ms, res=600, time=308.050000 (GFlop/s: 0.412) 
-
-500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
 
 | OpenACC ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
@@ -190,14 +168,6 @@ We can see that overall, the Python implementation has very poor performance and
 
 
 #### OpenACC (NVIDIA Tesla P100):
-
-30000ms, res=600, time=55.990000 (GFlop/s: 0.453) 
-
-60000ms, res=600, time=103.770000 (GFlop/s: 0.489)
-
-150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
-
-500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
 
 | OpenACC (NVIDIA Tesla P100) ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
@@ -219,19 +189,6 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 #### Python Serial 
 
-10ms, res=10: time=1.02  
-
-100ms, res=10: time=10.04  
-
-100ms, res=100: time=8.28 
-
-1000ms, res=600: time=87.96 
-
-10000ms, res=600: time=784.6  (GFlop/s: .0215)
-
-30000ms, res=600: time=2480.43  (GFlop/s: .0203)
-
-
 | Python Serial  ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 10  | 10 | 1.02 || 
@@ -247,14 +204,6 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 #### C Implementation
 
-30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
-
-60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
-
-150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
-
-500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
-
 | C ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 30000 | 600 | 501.390000 |0.101|
@@ -263,15 +212,6 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 500000 | 600 | 84072.320000 | 0.100|
 
 #### OpenACC:
-
-30000ms, res=600, time=118.470000 (GFlop/s: 0.427)
-
-60000ms, res=600, time=238.150000 (GFlop/s: 0.425)
-
-150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
-
-500000ms, res=600, time=1989.600000 (GFlop/s: 0.424)
-
 | OpenACC ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 30000 | 600 | 118.470000 |0.427|
@@ -280,14 +220,6 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 500000 | 600 | 1989.600000 | 0.424|
 
 #### OpenACC + MPI:
-
-30000ms, res=600, time= (GFlop/s: )
-
-60000ms, res=600, time=
-
-150000ms, res=600, time=1264.720000
-
-500000ms, res=600, time=4233.650000
 
 | OpenACC + MPI ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
@@ -299,14 +231,6 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 
 #### OpenACC (NVIDIA Tesla P100):
-
-30000ms, res=600, time=99.860000 (GFlop/s: 0.506)
-
-60000ms, res=600, time=200.110000 (GFlop/s: 0.505)
-
-150000ms, res=600, time= 501.820000 (GFlop/s: 0.504)
-
-500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
 
 | OpenACC (NVIDIA Tesla P100) ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
