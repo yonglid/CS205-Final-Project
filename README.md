@@ -34,7 +34,7 @@ We reduce the complexity by parallelising in the three following models and incr
 
 Many-core througput oriented GPU architectures:  Here we program first in SIMT for a GPU on Odyssey that gives us the first level of throughput improvement as shown in figure under this section: [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
 
-![test]https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png)
 
 
 ## SIMT parallelization P100 many-core
@@ -46,7 +46,9 @@ We further increase the througput by programming in SIMT but for a higher throug
 ## Hybrid SPMD parallelization
 After increasing the problem size N = 600 to N=3000, the idea is to run 4 copies of OpenACC across 4 nodes using MPI_bcast, chopping up the computation across 4 nodes.
 The root node distributes the data, the current openacc loop performs the simulation, the root node collects the results back. 
+
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png)
+
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_2.png)
 
 # Background: Basic Physiological Equations
