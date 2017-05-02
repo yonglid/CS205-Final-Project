@@ -255,6 +255,12 @@ The basic process of Lattice-Boltzmann is illustrated below:
 **_Repeat transport and relaxation_**
 
 
+Results: The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. One reason for this could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
+  
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png)
+
+
+
 Citations
 
 B. J. Krijgsman, Biological Reviews, 31, 288, 1956
