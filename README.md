@@ -289,7 +289,7 @@ The basic process of Lattice-Boltzmann is illustrated below:
 **_Repeat transport and relaxation_**
 
 
-Results: The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. Overall, this alludes to limitations with using a simple 2D LBM model. For multiphase fluids, Lattice-Boltzmann assumes that all components have the same viscocity. More accurate results have been shown with a 3D bi-visocity model (Liu, 2012). An additional of the D2Q9 LBM model could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
+Results: The lattice boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. Overall, this alludes to limitations with using a simple 2D LBM model. For multiphase fluids, Lattice-Boltzmann assumes that all components have the same viscocity. More accurate results have been shown with a bi-visocity model to simulate blood flow (Liu, 2012). An additional reason the D2Q9 LBM model does not match the expected curve could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
   
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png)
 
