@@ -124,10 +124,10 @@ Since heart fibers range between 10 micrometers and 100 micrometers, we ran a fe
 
 | Python Serial ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 10  | 10 | 1.06 || 
-| 100 | 10 | 6.02 ||
-| 100 | 100 | 5.76 ||
-| 1000 | 600 | 52.2 ||
+| 10  | 10 | 1.06 | - | 
+| 100 | 10 | 6.02 | - |
+| 100 | 100 | 5.76 | - |
+| 1000 | 600 | 52.2 | - |
 | 10000 | 600 | 527.0 |.016|
 | 30000 | 600 | 1753.3 | .0144|
 
@@ -209,6 +209,10 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 30000 | 600 | 2601.1 |0.019|
 | 60000 | 600 | 5411.19 | 0.019|
 
+
+
+When we increased the size of N, we actually saw a decrease in the benefits of parallelisation using Cython. In fact, the Cython code performed worse than the serial Python code. At the same time though, the throughput of the Python code was decreasing as we increased size while the Cython code stayed relatively constant. It would be plausible that for longer simulations, the Cython code would eventually overtake the Python code again. However at the objective speeds that this code was running at, running this experiment in Python/Cython is unfeasible anyway and the focus should be on doing simulations using C code.
+
 #### C Implementation
 
 | C ms | resolution | time | GFlops/s |
@@ -216,7 +220,7 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 30000 | 600 | 501.390000 |0.101|
 | 60000 | 600 | 999.530000 | 0.101|
 | 150000 | 600 | 2532.830000 | 0.100|
-| 500000 | 600 | 84072.320000 | 0.100|
+| 500000 | 600 | 8472.320000 | 0.100|
 
 #### OpenACC:
 | OpenACC ms | resolution | time | GFlops/s |
@@ -228,18 +232,12 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 #### OpenACC + MPI:
 
-30000ms, res=600, time=110.92 (GFlop/s: 0.456)
-60000ms, res=600, time=220.81 (GFlop/s: 0.459)
-150000ms, res=600, time=548.23 (GFlop/s: 0.461)
-500000ms, res=600, time=1830.49 (GFlop/s: 0.461)
-
 | OpenACC + MPI ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | ||
-| 60000 | 600 | | |
-| 150000 | 600 |  | |
-| 500000 | 600 |  | |
-
+| 30000 | 600 | 110.920000 | 0.456|
+| 60000 | 600 | 220.810000 | 0.459 |
+| 150000 | 600 | 548.230000 | 0.461 |
+| 500000 | 600 |  1830.490000 | 0.461 |
 
 #### OpenACC (NVIDIA Tesla P100):
 
