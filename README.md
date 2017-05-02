@@ -133,10 +133,14 @@ Since heart fibers range between 10 micrometers and 100 micrometers, we ran a fe
 
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| Python Serial  | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 10  | 10 | 1.06 || 
+|  | 100 | 10 | 6.02 ||
+|  | 100 | 100 | 5.76 ||
+|  | 1000 | 600 | 52.2 ||
+|  | 10000 | 600 | 527.0 |.016|
+|  | 30000 | 600 | 1753.3 | .0144|
 
 #### Cython
 
@@ -145,6 +149,12 @@ Since heart fibers range between 10 micrometers and 100 micrometers, we ran a fe
 30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
 
 60000ms, res=600: time=3242.5310328006744 (GFlop/s: 0.016)
+
+| Cython | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 10000 | 600 | 463.6690833568573 |0.018|
+|  | 30000 | 600 | 1553.7774078845978 |0.016|
+|  | 60000 | 600 | 3242.5310328006744 | 0.016|
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="512">
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png" width="512">
@@ -159,7 +169,14 @@ We can see that overall, the Python implementation has very poor performance and
 
 150000ms, res=600, time=856.340000 (GFlop/s: 0.148)  
 
-500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)  
+500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)
+
+| C | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 125.010000 |0.203|
+|  | 60000 | 600 | 307.410000 | 0.165|
+|  | 150000 | 600 | 856.340000 | 0.148|
+|  | 500000 | 600 | 2986.510000 | 0.142|
 
 #### OpenACC
 
@@ -170,6 +187,13 @@ We can see that overall, the Python implementation has very poor performance and
 150000ms, res=600, time=308.050000 (GFlop/s: 0.412) 
 
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
+
+| OpenACC | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 61.090000 |0.415|
+|  | 60000 | 600 | 123.010000 | 0.412|
+|  | 150000 | 600 | 308.050000 | 0.412|
+|  | 500000 | 600 | 1029.380000 | 0.411|
 
 #### OpenACC + MPI
 
@@ -185,6 +209,13 @@ We can see that overall, the Python implementation has very poor performance and
 150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
 
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
+
+| OpenACC (NVIDIA Tesla P100) | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 55.990000 |0.453|
+|  | 60000 | 600 | 103.770000  | 0.489|
+|  | 150000 | 600 | 271.700000 | 0.467|
+|  | 500000 | 600 | 903.990000 | 0.467|
 
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
@@ -211,6 +242,17 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 30000ms, res=600: time=2480.43  (GFlop/s: .0203)
 
+
+| Python Serial  | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 10  | 10 | 1.02 || 
+|  | 100 | 10 | 10.04 ||
+|  | 100 | 100 | 8.28 ||
+|  | 1000 | 600 | 87.96  ||
+|  | 10000 | 600 | 784.6  |.0215|
+|  | 30000 | 600 | 2480.43 | .0203|
+
+
 #### Cython Implementation
 
 
@@ -224,6 +266,13 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
 
+| C | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 501.390000 |0.101|
+|  | 60000 | 600 | 999.530000 | 0.101|
+|  | 150000 | 600 | 2532.830000 | 0.100|
+|  | 500000 | 600 | 84072.320000 | 0.100|
+
 #### OpenACC:
 
 30000ms, res=600, time=118.470000 (GFlop/s: 0.427)
@@ -233,6 +282,13 @@ In order to better show the effects of the parallelisation, we doubled the value
 150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
 
 500000ms, res=600, time=1989.600000 (GFlop/s: 0.424)
+
+| OpenACC | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 118.470000 |0.427|
+|  | 60000 | 600 | 238.150000 | 0.425|
+|  | 150000 | 600 | 599.230000 | 0.422|
+|  | 500000 | 600 | 1989.600000 | 0.424|
 
 #### OpenACC + MPI:
 
@@ -244,6 +300,15 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 500000ms, res=600, time=4233.650000
 
+| OpenACC + MPI | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | ||
+|  | 60000 | 600 | | |
+|  | 150000 | 600 | 1264.720000 | |
+|  | 500000 | 600 | 4233.650000 | |
+
+
+
 #### OpenACC (NVIDIA Tesla P100):
 
 30000ms, res=600, time=99.860000 (GFlop/s: 0.506)
@@ -253,6 +318,13 @@ In order to better show the effects of the parallelisation, we doubled the value
 150000ms, res=600, time= 501.820000 (GFlop/s: 0.504)
 
 500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
+
+| OpenACC (NVIDIA Tesla P100) | ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+|  | 30000 | 600 | 99.860000 |0.506|
+|  | 60000 | 600 | 200.110000  | 0.505|
+|  | 150000 | 600 |501.820000| 0.504|
+|  | 500000 | 600 | 1662.240000 | 0.507|
 
 # Advanced Features
 ### p100
