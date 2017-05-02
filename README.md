@@ -41,13 +41,13 @@ Many-core througput oriented GPU architectures:  Here we program first in SIMT f
 We further increase the througput by programming in SIMT but for a higher throughput P100 GPU architectures. This enables us to perform more simulations by increasing thoroughput. 
 
 
-![test]https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png)
 
 ## Hybrid SPMD parallelization
 After increasing the problem size N = 600 to N=3000, the idea is to run 4 copies of OpenACC across 4 nodes using MPI_bcast, chopping up the computation across 4 nodes.
 The root node distributes the data, the current openacc loop performs the simulation, the root node collects the results back. 
-![test]https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png
-![test]https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_2.png
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png)
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_2.png)
 
 # Background: Basic Physiological Equations
 
