@@ -164,8 +164,10 @@ We can see that overall, the Python implementation has very poor performance and
 
 #### OpenACC + MPI
 
-60000ms, res=600, time= (GFlop/s: )
-
+30000ms, res=600, time=60.87 (GFlop/s: 0.416)
+60000ms, res=600, time=120.19 (GFlop/s: 0.422)
+150000ms, res=600, time=299.80 (GFlop/s: 0.423)
+500000ms, res=600, time=1001.02 (GFlop/s: 0.423)
 
 #### OpenACC (NVIDIA Tesla P100):
 
@@ -201,6 +203,11 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 #### Cython Implementation
 
+| Cython ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- |
+| 10000 | 600 | 832.72 |0.020|
+| 30000 | 600 | 2601.1 |0.019|
+| 60000 | 600 | 5411.19 | 0.019|
 
 #### C Implementation
 
@@ -221,13 +228,17 @@ In order to better show the effects of the parallelisation, we doubled the value
 
 #### OpenACC + MPI:
 
+30000ms, res=600, time=110.92 (GFlop/s: 0.456)
+60000ms, res=600, time=220.81 (GFlop/s: 0.459)
+150000ms, res=600, time=548.23 (GFlop/s: 0.461)
+500000ms, res=600, time=1830.49 (GFlop/s: 0.461)
+
 | OpenACC + MPI ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 30000 | 600 | ||
 | 60000 | 600 | | |
-| 150000 | 600 | 1264.720000 | |
-| 500000 | 600 | 4233.650000 | |
-
+| 150000 | 600 |  | |
+| 500000 | 600 |  | |
 
 
 #### OpenACC (NVIDIA Tesla P100):
