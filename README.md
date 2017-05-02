@@ -278,3 +278,5 @@ M. E. Kriebel, Journal of General Physiology, 50, 2097, 1967
 M. E. Kriebel, Biological Bulletin, 134, 434, 1968
 
 C. H. Luo and Y. Rudy, Circulation Research 74, 1071, 1994
+
+Y. Liu, Applied Mathematical Modelling, 36,7, pp.2890-2899, 2012
