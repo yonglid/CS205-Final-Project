@@ -34,7 +34,7 @@ We reduce the complexity by parallelising in the three following models and incr
 
 Many-core througput oriented GPU architectures:  Here we program first in SIMT for a GPU on Odyssey that gives us the first level of throughput improvement as shown in figure under this section: [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC_1.png)
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC.png)
 
 
 ## SIMT parallelization P100 many-core
