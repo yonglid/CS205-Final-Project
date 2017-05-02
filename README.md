@@ -220,7 +220,7 @@ OpenACC (NVIDIA Tesla P100):
 ### p100
 ### Modeling: The Lattice Boltzmann Model (LBM)
 
-To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow.
+To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow. [Click here to see the python code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
 
 Overall, there are a few advantages of using LBM to model blood flow. 
 
