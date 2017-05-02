@@ -261,7 +261,7 @@ Results: The lattice boltzmann model shows that at least for the approximate val
 
 
 
-Citations
+# Citations
 
 B. J. Krijgsman, Biological Reviews, 31, 288, 1956
 
