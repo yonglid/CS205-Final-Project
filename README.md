@@ -162,7 +162,7 @@ We can see that overall, the Python implementation has very poor performance and
 | 150000 | 600 | 308.050000 | 0.412|
 | 500000 | 600 | 1029.380000 | 0.411|
 
-#### OpenACC + MPI
+#### OpenACC + MPI [code](https://github.com/yonglid/CS205-Final-Project/blob/master/OpenACC%2BMPI/full_write_parMPI.c)
 
 30000ms, res=600, time=60.87 (GFlop/s: 0.416)
 60000ms, res=600, time=120.19 (GFlop/s: 0.422)
