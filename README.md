@@ -6,7 +6,7 @@
   * [Potential Hypotheses for Blood Flow Reversal](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#potential-hypotheses-for-blood-flow-reversal)
   * [Problem to tackle](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#problem-to-tackle)
 - [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
-- [Appliciable scaling plots (benchmarking)](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#appliciable-scaling-plots-benchmarking)
+- [Application scaling plots (benchmarking)](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#appliciable-scaling-plots-benchmarking)
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
   * [p100](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#p100)
   * [Lattice-Boltzmann](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#modeling-the-lattice-boltzmann-model-lbm)
@@ -27,23 +27,20 @@ One major issue with the research was the length of simulation generation. For e
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
-* computational/baseline sequential algorithm
-The time complexity of modelling the reversal as in models,  is mainly dependent on the resolution of the model. For high fidelity simulation we need to increase the problem size N , to simulate 300000 ms .
-We reduce the complexity by parallelising in two models:
+The time complexity of modelling the reversal as in models,  is mainly dependent on the resolution of the model. For high fidelity simulation we need to increase the problem size N , to simulate 300000 ms.
+We reduce the complexity by parallelising in the three following models and increasing the problem size:
 
-##SIMT parallelization 
+## SIMT parallelization (OpenACC) 
 
-Many-core througput oriented GPU architectures:  Here we program first in SIMT for a GPU on Odyssey that gives us the first level of throughput improvement as shown in figure ...
+Many-core througput oriented GPU architectures:  Here we program first in SIMT for a GPU on Odyssey that gives us the first level of throughput improvement as shown in figure under this section: [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
 
-##SIMT parallelization P100 many-core
-We further increase the througput by programming in SIMT but for a higher throughput P100 GPU architectures. This enables us to perform more simulations....
+## SIMT parallelization P100 many-core
+We further increase the througput by programming in SIMT but for a higher throughput P100 GPU architectures. This enables us to perform more simulations by increasing thoroughput. 
 
-##Hybrid SPMD parallelization
-openacc + MPI (bcast) 
+## Hybrid SPMD parallelization
+After increasing the problem size N = 600 to N=3000, the idea is to run 4 copies of OpenACC across 4 nodes using MPI_bcast, chopping up the computation across 4 nodes.
+The root node distributes the data, the current openacc loop performs the simulation, the root node collects the results back. 
 
-* put thoroughplot with parallelization 
-* time complexity 
-* bcast for mpi 
 # Background: Basic Physiological Equations
 
 In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a certain interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
