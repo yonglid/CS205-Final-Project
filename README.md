@@ -117,7 +117,7 @@ Language: Current code in Python from Peter's research project - re-coding in C 
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell.
 
-(Step = 10^-2, L=3.0cm, N=300) 
+### (Step = 10^-2, L=3.0cm, N=300) 
 
 Python Serial 
 
@@ -128,7 +128,7 @@ Python Serial
 10000ms, res=600: time=527.0  (GFlop/s: .016)
 30000ms, res=600: time=1753.3  (GFlop/s: .0144)
 
-Cython Implementation (Step = 10^-2, L=3.0, N=300)
+Cython Implementation
 
 10000ms, res=600: time=463.6690833568573 (GFlop/s: 0.018)
 30000ms, res=600: time=1553.7774078845978 (GFlop/s: 0.016)
@@ -139,49 +139,29 @@ Cython Implementation (Step = 10^-2, L=3.0, N=300)
 
 We can see that overall, the Python implementation has very poor performance and the Cython parallelisation does very little to actually improve the throughput. 
 
-C Implementation: (Step = 10^-2, L=3.0, N=300)  
+C Implementation: 
 
-N=300
 30000ms, res=600, time=125.010000 (GFlop/s: 0.203)  
 60000ms, res=600, time=307.410000 (GFlop/s: 0.165)  
 150000ms, res=600, time=856.340000 (GFlop/s: 0.148)  
 500000ms, res=600, time=2986.510000 (GFlop/s: 0.142)  
 
-N = 600
-30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
-60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
-150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
-500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
-
 OpenACC: 
 
-N = 300
 30000ms, res=600, time=61.090000 (GFlop/s: 0.415)  
 60000ms, res=600, time=123.010000 (GFlop/s: 0.412)  
 150000ms, res=600, time=308.050000 (GFlop/s: 0.412)  
 500000ms, res=600, time=1029.380000 (GFlop/s: 0.411)  
 
-N = 600
-30000ms, res=600, time=118.470000 (GFlop/s: 0.427)
-60000ms, res=600, time=238.150000 (GFlop/s: 0.425)
-150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
-
 OpenACC + MPI:
 60000ms, res=600, time= (GFlop/s: )
 
-OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
+OpenACC (NVIDIA Tesla P100):
 
-N = 300
 30000ms, res=600, time=55.990000 (GFlop/s: 0.453)  
 60000ms, res=600, time=103.770000 (GFlop/s: 0.489)
 150000ms, res=600, time=271.700000 (GFlop/s: 0.467)
 500000ms, res=600, time=903.990000, (GFlop/s: 0.467)
-
-N = 600
-30000ms, res=600, time=
-60000ms, res=600, time=
-150000ms, res=600, time=
-500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
@@ -190,7 +170,7 @@ We can see that the C implementation already provides much faster simulation gen
 
 In order to better show the effects of the parallelisation, we doubled the value N, which would increase the computation in the areas that we had parallelised. An N of 600 works well and maintains good biological accuracy with the hearts cells now being 50 micrometers in length. We did not increase the N any more than this due to the necessity of numerical stability. If .001(cellsize)/(timestep^2) > 1/2, then the numerical approximations that we use will diverge in value and not provide accurate simulations. Using a value of N which is larger than 600 would necessitate a smaller timestep, which would drastically increase computation time and slow down the code more than the parallelisation would speed it up.
 
-(Step = 10^-2, L=3.0cm, N=600)
+### (Step = 10^-2, L=3.0cm, N=600)
 
 Python Serial 
 
@@ -203,13 +183,27 @@ Python Serial
 
 Cython Implementation
 
-C Implementation: (Step = 10^-2, L=3.0, N=600) 
+C Implementation:
+
 30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
 60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
 150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
 500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
 
+OpenACC:
 
+30000ms, res=600, time=118.470000 (GFlop/s: 0.427)
+60000ms, res=600, time=238.150000 (GFlop/s: 0.425)
+150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
+
+OpenACC + MPI:
+
+OpenACC (NVIDIA Tesla P100):
+
+30000ms, res=600, time=
+60000ms, res=600, time=
+150000ms, res=600, time=
+500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
 
 # Advanced Features
 ### p100
