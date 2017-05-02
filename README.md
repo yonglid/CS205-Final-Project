@@ -167,7 +167,15 @@ N = 600
 150000ms, res=600, time=599.230000 (GFlop/s: 0.422)
 
 OpenACC + MPI:
+
+N = 300
+
 60000ms, res=600, time= (GFlop/s: )
+
+N = 600
+
+30000ms, res=600, time=249.690000
+
 
 OpenACC (NVIDIA Tesla P100): (Step = 10^-2, L=3.0, N= 300)
 
