@@ -181,9 +181,9 @@ We can see that overall, the Python implementation has very poor performance and
 | 500000 | 600 | 903.990000 | 0.467|
 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c300_throughput.png" width="512">
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c_speedup2.png" width="800">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c300_speedup.png" width="512">
 
 We can see that the C implementation already provides much faster simulation generation than the Python code does. Additionally, the parallelisation of the code produced much better speedups that the parallelisation of the Python code. Using OpenACC, OpenACC + MPI, and then OpenACC on the NVIDIA Tesla P100, our throughput drastically increased and the computation time was at worst, halved.
 
