@@ -204,11 +204,16 @@ OpenACC:
 
 OpenACC + MPI:
 
+30000ms, res=600, time= (GFlop/s: )
+
+150000ms, res=600, time=1264.720000
+500000ms, res=600, time=
+
 OpenACC (NVIDIA Tesla P100):
 
-30000ms, res=600, time=
-60000ms, res=600, time=
-150000ms, res=600, time=
+30000ms, res=600, time=99.860000 (GFlop/s: 0.506)
+60000ms, res=600, time=200.110000 (GFlop/s: 0.505)
+150000ms, res=600, time= 501.820000 (GFlop/s: 0.504)
 500000ms, res=600, time=1662.240000 (GFlop/s: 0.507)
 
 # Advanced Features
