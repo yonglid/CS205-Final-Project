@@ -186,11 +186,8 @@ Cython Implementation
 C Implementation:
 
 30000ms, res=600, time=501.390000 (GFlop/s: 0.101)
-
 60000ms, res=600, time=999.530000 (GFlop/s: 0.101)
-
 150000ms, res=600, time=2532.830000 (GFlop/s: 0.100)
-
 500000ms, res=600, time=84072.320000 (GFlop/s: 0.100)
 
 OpenACC:
