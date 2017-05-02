@@ -212,6 +212,9 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 60000 | 600 | 5411.19 | 0.019|
 
 
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_throughput.png" width="512">
+
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_speedup.png" width="512">
 
 When we increased the size of N, we actually saw a decrease in the benefits of parallelisation using Cython. In fact, the Cython code performed worse than the serial Python code. At the same time though, the throughput of the Python code was decreasing as we increased size while the Cython code stayed relatively constant. It would be plausible that for longer simulations, the Cython code would eventually overtake the Python code again. However at the objective speeds that this code was running at, running this experiment in Python/Cython is unfeasible anyway and the focus should be on doing simulations using C code.
 
@@ -249,6 +252,12 @@ When we increased the size of N, we actually saw a decrease in the benefits of p
 | 60000 | 600 | 200.110000  | 0.505|
 | 150000 | 600 |501.820000| 0.504|
 | 500000 | 600 | 1662.240000 | 0.507|
+
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_throughput.png" width="512">
+
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_speedup.png" width="512">
+
+We can see that we get the best performance out of the parallelisation with the N=600. This is fantastic since an N of 600 is likely the most biologically accurate, but it also provides the scaling necessary to see an increase in the performance through parallelisation. Using the OpenACC on the NVIDIA Tesla P100, it takes about 3 seconds to generate 1 second of simulation. This is great performance that would easily allow biological hypotheses to be tested in a reasonable amount of time; allowing for much faster scientific research to be performed.
 
 # Advanced Features
 ### p100
