@@ -22,8 +22,8 @@ def bc_out(f, m, x, y, width, grad_pressure):
     m[rho] = (x-0.5*width) * grad_pressure
 
 
-#Define the model. In order to accelerate the simulation, we can use Cython to generate a more efficient code (via pyLBM cython generator)
-
+#Define the model. In order to accelerate the simulation, we can use Cython to generate a more efficient code 
+#(via pyLBM cython generator).
 def run(dx, Tf, generator="cython", sorder=None, withPlot=True):
     """
     Parameters
