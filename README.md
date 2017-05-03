@@ -270,9 +270,11 @@ We can see that we get the best performance out of the parallelisation with the 
 
 # Advanced Features
 ### p100
-### Modeling: The Lattice Boltzmann Model (LBM)
+### Modeling: The Lattice Boltzmann Model (LBM) [Click here to see the python code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
 
-To model blood flow, one might typically think about using the Navier-stokes equation for fluid dynamics simulations. However, blood is a a multiphase non-Newtonian viscoelastic fluid. These properties essentially mean the continuum approximations of Navier-stokes do not hold for modeling blood flow. [Click here to see the python code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
+Our main research problem was to parrallize simulations to test the two major hyptheses for blood flow reversal, but we also wanted to explore blood flow simulation. We chose to use a 2D lattice boltzmann model with approximate values of tunicate blood density and velcocity.
+
+The chosen lattice model combines the macroscopic Navier-stokes equation for fluid dynamics simulations and microscopic kinetics of individual molecules. This is especially useful since blood is a a multiphase non-Newtonian viscoelastic fluid. These fluid properties essentially mean the continuum approximations of Navier-stokes are too simple to accurately model blood flow. On the otherhand, modeling the kinetics of individual molecules has a large computational cost. Therefore, LBM is an appropriate mesoscopic model where a fixed number of individual molecules are limited to one directional vector on a lattice.
 
 Overall, there are a few advantages of using LBM to model blood flow. 
 
