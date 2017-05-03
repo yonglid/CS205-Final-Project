@@ -274,7 +274,7 @@ We can see that we get the best performance out of the parallelisation with the 
 
 Our main research problem was to parrallize simulations to test the two major hyptheses for blood flow reversal, but we also wanted to explore blood flow simulation. We chose to use a 2D lattice boltzmann model with approximate values of tunicate blood density and velcocity.
 
-The chosen lattice model combines the macroscopic Navier-stokes equation for fluid dynamics simulations and microscopic kinetics of individual molecules. This is especially useful since blood is a a multiphase non-Newtonian viscoelastic fluid. These fluid properties essentially mean the continuum approximations of Navier-stokes are too simple to accurately model blood flow. On the otherhand, modeling the kinetics of individual molecules has a large computational cost. Therefore, LBM is an appropriate mesoscopic model where a fixed number of individual molecules are limited to one directional vector on a lattice.
+The chosen lattice model combines the macroscopic Navier-stokes equation for fluid dynamics simulations and microscopic kinetics of individual molecules. This is especially useful since blood is a a multiphase non-Newtonian viscoelastic fluid. These fluid properties essentially mean the continuum approximations of Navier-stokes are too simple to accurately model blood flow. On the otherhand, modeling the kinetics of individual molecules with Boltzmann's theory has a large computational cost. Lattice-Boltzmann method is a simplification of Boltzmann’s original idea by restricting the number of particles and confining the velocity vectors to the nodes of a lattice. Therefore, LBM is an appropriate mesoscopic model where a fixed number of individual molecules are limited to two directional vector on a lattice.
 
 Overall, there are a few advantages of using LBM to model blood flow. 
 
@@ -282,7 +282,7 @@ Overall, there are a few advantages of using LBM to model blood flow.
 2)	It can more readily include complex boundary conditions
 3)	It can easily be parallelized. 
 
-Boltzmann’s theory of kinetic gasses essentially says that gasses or fluids can be regarded as small particles with random motions. This idea is simplified by the Lattice-Boltzmann method is a simplification of Boltzmann’s original idea by restricting the number of particles and confining the velocity vectors to the nodes of a lattice. Thus, LBM is an ideal balance between microscopic (bottom-up) and macroscopic (top-down) molecular dynamic simulations.
+
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png)
 **_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model._**
