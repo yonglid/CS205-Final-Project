@@ -33,11 +33,6 @@ We reduce the complexity by parallelising in the three following models and incr
 After increasing the problem size N = 600 to N=3000, the idea is to run 4 copies of OpenACC across 4 nodes using MPI_bcast, chopping up the computation across 4 nodes.
 The root node distributes the data, the current openacc loop performs the simulation, the root node collects the results back. 
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeMPI_1_1.png)
-
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACCMPI_1.png)
-
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACCMPI_2.png)
 
 # Background: Basic Physiological Equations
 
@@ -88,11 +83,11 @@ In order to reduce the runtimes associated with generating simulations of blood 
 **SIMT Parallelization**   
 We employed single instruction, multiple thread (SIMT) parallelization in two different ways. First, we converted the original Python implementation of the simulation to the Cython language. While the syntax of Cython mirrors that of Python, Cython importantly supports calling C functions and declaring C types on variables and class attributes. Thus, upon compilation of the Cython code, we were able to take advantage of the intrinsic efficiency of the C language relative to Python. More importantly, though, was the ability of the Cython language to readily support parallelization. In particular, we utilized the prange() function in the cython.parallel module to parallelize via multithreading the *for* loops that exist within the computationally intensive regions of our simulation. An example of the Cython implementation is included below. 
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png = 100x)
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png =100x)
 
 In addition, we manually converted the original Python version of the blood flow simulation to the C programming language. This task offered the opportunity to experience speedup due to the increased efficiency of C as well as with the integration of a number of C-compatible parallel programming models. The main SIMT parallel programming model that we selected to test was OpenACC. With OpenACC, we retained the translated C implementation of our simulation algorithm and included OpenACC directives to enable SIMT parallelization within the same highly parallelizable regions of code as in the Cython version. Specifically, we used parallel loop clauses to achieve parallelization in combination with gang, worker, and vector clauses to more explicitly specify the way in which parallelization is mapped across threadblocks, warps, and CUDA threads, respectively. 
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC.png = 100x)
+![test](https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC.png =100x)
 
 **SPMD Parallelization**  
 We also sought to use single program, multiple data (SPMD) parallelization models to achieve greater speedup in our simulation execution. In our implementation of this model, we designed a hybrid OpenACC + MPI program that enables multiple processors to simulateneously execute the same program while operating on different different subsets of the data. With regards to the implementation of this hybrid approach, we built upon the OpenACC version of the simluation by first initializing an MPI execution environment, called a communicator, prior to the bulk updating procedures in the simulation. We then broadcast the array storing voltage values to all other processes of the communicator via the MPI_Bcast() function. We identified this voltage array as the optimal "message" to be broadcast due to the frequency of its use in the simulation process as well as parallelizability of the procedures for updating voltage values across the various time points in the simulation. 
