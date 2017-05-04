@@ -19,7 +19,7 @@ Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas
 
 # Introduction
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/tunicate.jpg" width="500">
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/tunicate.jpg" width="400"></p>
 
 The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in Python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
 
@@ -83,17 +83,17 @@ In order to reduce the runtimes associated with generating simulations of blood 
 **SIMT Parallelization**   
 We employed single instruction, multiple thread (SIMT) parallelization in two different ways. First, we converted the original Python implementation of the simulation to the Cython language. While the syntax of Cython mirrors that of Python, Cython importantly supports calling C functions and declaring C types on variables and class attributes. Thus, upon compilation of the Cython code, we were able to take advantage of the intrinsic efficiency of the C language relative to Python. More importantly, though, was the ability of the Cython language to readily support parallelization. In particular, we utilized the prange() function in the cython.parallel module to parallelize via multithreading the *for* loops that exist within the computationally intensive regions of our simulation. An example of the Cython implementation is included below. 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png" width="400">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeCython.png" width="550">
 
 In addition, we manually converted the original Python version of the blood flow simulation to the C programming language. This task offered the opportunity to experience speedup due to the increased efficiency of C as well as with the integration of a number of C-compatible parallel programming models. The main SIMT parallel programming model that we selected to test was OpenACC. With OpenACC, we retained the translated C implementation of our simulation algorithm and included OpenACC directives to enable SIMT parallelization within the same highly parallelizable regions of code as in the Cython version. Specifically, we used parallel loop clauses to achieve parallelization in combination with gang, worker, and vector clauses to more explicitly specify the way in which parallelization is mapped across threadblocks, warps, and CUDA threads, respectively. 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC.png" width="400">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeACC.png" width="550">
 
 
 **SPMD Parallelization**  
 We also sought to use single program, multiple data (SPMD) parallelization models to achieve greater speedup in our simulation execution. In our implementation of this model, we designed a hybrid OpenACC + MPI program that enables multiple processors to simulateneously execute the same program while operating on different different subsets of the data. With regards to the implementation of this hybrid approach, we built upon the OpenACC version of the simluation by first initializing an MPI execution environment, called a communicator, prior to the bulk updating procedures in the simulation. We then broadcast the array storing voltage values to all other processes of the communicator via the MPI_Bcast() function. We identified this voltage array as the optimal "message" to be broadcast due to the frequency of its use in the simulation process as well as parallelizability of the procedures for updating voltage values across the various time points in the simulation. 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeACCMPI.png" width="400">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeACCMPI.png" width="450">
 
 # Benchmarking:
 
@@ -276,13 +276,13 @@ Overall, there are a few advantages of using LBM to model blood flow.
 3)	It can easily be parallelized. 
 
 
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png" width="400">
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png)
-**_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-stokes model._**
+**_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-Stokes model._**
 
 We focus on the two-dimensional blood flow simulation by using LBM to model Navier stokes.
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM2.png)
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM2.png" width="400">
 
 **_Lattice scheme to model Navier-Stokes._**
 
@@ -294,7 +294,6 @@ The basic process of Lattice-Boltzmann is illustrated below:
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM4.png" width="400">
 
-![test](https://github.com/yonglid/CS205-Final-Project/blob/master/LBM4.png)
 **_Transport phase: shift of data along each independent velocity vector._**
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM5.png" width="400">
@@ -307,7 +306,7 @@ The basic process of Lattice-Boltzmann is illustrated below:
 
 **Results:** The Lattice Boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. Overall, this alludes to limitations with using a simple 2D LBM model. For multiphase fluids, Lattice-Boltzmann assumes that all components have the same viscocity. More accurate results have been shown with a bi-visocity model to simulate blood flow (Liu, 2012). An additional reason the D2Q9 LBM model does not match the expected curve could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png" width="400">
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png" width="400"></p>
 
 
 # Citations
