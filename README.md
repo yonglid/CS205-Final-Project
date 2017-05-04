@@ -21,9 +21,9 @@ Current team: Peter Chang, Yong Li Dich, Alexander Wu, Anita Chandrahas
 
 ![test](https://github.com/yonglid/CS205-Final-Project/blob/master/ppt1.png)
 
-The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
+The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood flow direction reversal. There are two main potential methods researched on how the tunicate carries out this nonpareil event: 1) two pacemakers with the same rates but with natural deviations 2) two pacemakers with different rates that change at every k where k is between 1 and infinity pumps. The math was initially coded out in Python to generate a video simulation of the blood flow in order to observe the two possible etiologies for the blood flow reversal.
 
-One major issue with the research was the length of simulation generation. For each 30 second video, about 45 minutes of computations were needed, which is much too long when multiple parameters are needed to be tested. For this project, in order to assist in more efficient and productive research to test out more hypotheses on this phenomenon, the team implemented various parallelisations in order to drastically speed up the simulations. The python code was coded into C code, writing data points of voltage in correlation with time into a file, which is taken in by a python program to create data plots for visualization/simulation. 
+One major issue with the research was the length of simulation generation. For each 30 second video, about 45 minutes of computations were needed, which is much too long when multiple parameters are needed to be tested. For this project, in order to assist in more efficient and productive research to test out more hypotheses on this phenomenon, the team implemented various parallelisations in order to drastically speed up the simulations. The Python code was coded into C code, writing data points of voltage in correlation with time into a file, which is taken in by a Python program to create data plots for visualization/simulation. 
 
 The main point was to allow for less time spent running the code and more time looking into reasons for the blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the lattice boltzmann approach). 
 
@@ -100,12 +100,15 @@ Where N is the number of cells within the heart fiber.
 
 # Technical description of parallel software solution
 
-Parallelize the code 
-- SIMT parallelization - (manycore throughput) - single instruction, multiple thread 
- - Python -> Cython -> Prange
- - Python -> C -> OpenACC (compiler: pgi) 
-  - Future fix/tests: Need smaller time step for more accuracy - we can now do this with parallelized version (took too long before) 
-  - Added directives 
+In order to reduce the runtimes associated with generating simulations of blood flow, we implemented several different parallelization techniques. 
+
+**SIMT Parallelization**
+We employed single instruction, multiple thread (SIMT) parallelization in two different ways. First, we converted the original Python implementation of the simulation to the Cython language. While the syntax of Cython mirrors that of Python, Cython importantly supports calling C functions and declaring C types on variables and class attributes. Thus, upon compilation of the Cython code, we were able to take advantage of the intrinsic efficiency of the C language relative to Python. More importantly, though, was the ability of the Cython language to readily support parallelization. In particular, we utilized the prange() function in the cython.parallel module to parallelize via multithreading the *for* loops that exist within the computationally intensive regions of our simulation. 
+
+In addition, we manually converted the original Python version of the blood flow simulation to the C programming language. This task offered the opportunity to experience speedup due to the increased efficiency of C as well as with the integration of a number of C-compatible parallel programming models. The main SIMT parallel programming model that we selected to test was OpenACC. With OpenACC, we retained the translated C implementation of our simulation algorithm and included OpenACC directives to enable SIMT parallelization within the same highly parallelizable regions of code as in the Cython version. Specifically, we used parallel loop clauses to achieve parallelization in combination with gang, worker, and vector clauses to more explicitly specify the way in which parallelization is mapped across threadblocks, warps, and CUDA threads, respectively. 
+
+**SPMD Parallelization**
+We also sought to use single program, multiple data (SPMD) parallelization models to achieve greater speedup in our simulation execution. In our implementation of this model, we designed a hybrid OpenACC + MPI program that enables multiple processors to simulateneously execute the same program while operating on different different subsets of the data. With regards to the implementation of this hybrid approach, we built upon the OpenACC version of the simluation by first initializing an MPI execution environment, called a communicator, prior to the bulk updating procedures in the simulation. We then broadcast the array storing voltage values to all other processes of the communicator via the MPI_Bcast() function. We identified this voltage array as the optimal "message" to be broadcast due to the frequency of its use in the simulation process as well as parallelizability of the procedures for updating voltage values across the various time points in the simulation. 
 
 Separated calculation of voltage points and creation of plots for simulation 
 
@@ -180,6 +183,15 @@ We can see that overall, the Python implementation has very poor performance and
 | 150000 | 600 | 299.800000 | 0.423|
 | 500000 | 600 | 1001.020000 | 0.423|
 
+#### C Serial (NVIDIA Tesla P100)
+
+| ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- |
+| 30000 | 600 |  ||
+| 60000 | 600 | 446.11  | |
+| 150000 | 600 || |
+| 500000 | 600 | | |
+
 #### OpenACC (NVIDIA Tesla P100)
 
 | ms | resolution | time | GFlops/s |
@@ -252,6 +264,17 @@ When we increased the size of N, we actually saw a decrease in the benefits of p
 | 60000 | 600 | 220.810000 | 0.459 |
 | 150000 | 600 | 548.230000 | 0.461 |
 | 500000 | 600 |  1830.490000 | 0.461 |
+
+
+#### C Serial (NVIDIA Tesla P100)
+
+| ms | resolution | time | GFlops/s |
+| ------------- | ------------- | ------------- | ------------- |
+| 30000 | 600 |  ||
+| 60000 | 600 | 446.11  | |
+| 150000 | 600 || |
+| 500000 | 600 | 1662.240000 | 0.507|
+
 
 #### OpenACC (NVIDIA Tesla P100)
 
