@@ -4,11 +4,10 @@
 - [Introduction](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#introduction)
   * [Background: Basic Physiological Equations](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#background-basic-physiological-equations)
   * [Potential Hypotheses for Blood Flow Reversal](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#potential-hypotheses-for-blood-flow-reversal)
-  * [Problem to tackle](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#problem-to-tackle)
-- [Technical description of parallel software solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
-- [Application scaling plots (benchmarking)](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#appliciable-scaling-plots-benchmarking)
+- [Technical Description of Parallel Software Solution](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#technical-description-of-parallel-software-solution)
+- [Benchmarking](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#appliciable-scaling-plots-benchmarking)
 - [Advanced Features](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#advanced-features)
-  * [p100](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#p100)
+  * [NVIDIA Tesla P100 GPU Accelerators](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#nvidia-tesla-p100-gpu-accelerators)
   * [Lattice-Boltzmann](https://github.com/yonglid/CS205-Final-Project/blob/master/README.md#modeling-the-lattice-boltzmann-model-lbm)
 
 
