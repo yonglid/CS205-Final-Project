@@ -25,15 +25,6 @@ The tunicate, commonly known as the sea squirt, exhibits the phenomenon of blood
 
 One major issue with the research was the length of time associated with simulation generation. For each 30 second video modeling the blood reversal process, about 45 minutes of computations were needed, which is much too long when multiple parameters are needed to be tested. For this project, in order to assist in more efficient and productive research to test out more hypotheses on this phenomenon, the team implemented various parallelization methods in order to drastically speed up the simulations. The main goal of this approach was to reduce the simulation generation time, allowing for improved means of understanding the phenomenon of blood flow reversal, though the domain of blood flow simulation is also very interesting to explore (like the Lattice Boltzmann approach). 
 
-The time complexity of modeling the reversal is mainly dependent on the resolution of the model. For high fidelity simulation we need to increase the problem size N to simulate 300000 ms.
-We reduce the complexity by parallelising in the three following models and increasing the problem size:
-
-
-## Hybrid SPMD parallelization
-After increasing the problem size N = 600 to N=3000, the idea is to run 4 copies of OpenACC across 4 nodes using MPI_bcast, chopping up the computation across 4 nodes.
-The root node distributes the data, the current openacc loop performs the simulation, the root node collects the results back. 
-
-
 # Background: Basic Physiological Equations
 
 In order for a heart to pump blood, a pacemaker is required at the end of the heart fibers. This pacemaker creates electric jolts at a specific interval in order to send waves throughout the entire fiber. The heart of a sea squirt may be modeled as having two pacemakers, one at either end of the heart fiber (Krijgsman, Miller and Waldrop), which allows for blood to flow in both directions. A unique feature about wave mechanics within a heart fiber is that waves which collide do not pass through each other as most waves do. Rather, the nature of the mechanics causes the two waves to "collapse" upon collision. This allows only one of the directions to be dominant at any given moment.
@@ -44,11 +35,11 @@ Based on the Mitchell-Schaeffer model, there are two main components that govern
 
 <a href="https://www.codecogs.com/eqnedit.php?latex==\frac{h}{t_{in}}&space;v^2&space;(1-v)&space;-&space;\frac{v}{t_{out}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?=\frac{h}{t_{in}}&space;v^2&space;(1-v)&space;-&space;\frac{v}{t_{out}}" title="=\frac{h}{t_{in}} v^2 (1-v) - \frac{v}{t_{out}}" /></a>
 
-Where *t~in* and *t~out* are physiological constants, *v* is voltage inside the cell, and *h* is a constant between 0 and 1 that represents how open or closed the cell door introducing external voltage is. The variable *h* is governed by the following piecewise ordinary differential equation:
+Where *t~in~* and *t~out~* are physiological constants, *v* is voltage inside the cell, and *h* is a constant between 0 and 1 that represents how open or closed the cell door introducing external voltage is. The variable *h* is governed by the following piecewise ordinary differential equation:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=dh/dt=&space;\begin{cases}&space;-h/t_{close}&space;&&space;\text{if&space;}&space;v>v_{crit}\&space;&&space;(1-h)/t_{open}&space;&&space;\text{if&space;}&space;v<v_{crit}&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?dh/dt=&space;\begin{cases}&space;-h/t_{close}&space;&&space;\text{if&space;}&space;v>v_{crit}\&space;&&space;(1-h)/t_{open}&space;&&space;\text{if&space;}&space;v<v_{crit}&space;\end{cases}" title="dh/dt= \begin{cases} -h/t_{close} & \text{if } v>v_{crit}\ & (1-h)/t_{open} & \text{if } v<v_{crit} \end{cases}" /></a>
 
-where t~open and t~close are once again physiological constants and v~crit is a certain voltage level that determines how the cell will behave.  
+where t~open~ and t~close~ are once again physiological constants and v~crit~ is a certain voltage level that determines how the cell will behave.  
 
 The diffusion equation expressing voltage with respect to time is:
 
@@ -74,8 +65,6 @@ where *N* is the number of cells within the heart fiber.
 
 2) **Random Variation Method:** In this method, the two pacemakers maintain the same average pacemaker rate but with some standard deviation between each pump. This hypothesis requires more testing in order to determine whether reversals can occur and with which parameters (such as diffusion rate, fiber length, number of cells, etc.) this model can be sustained to retain biological consistency. This parameter-heavy model is the reason why parallelising this code is important. Multiple tests must be run with different constants in order to determine whether this model can prove to be sufficient.
 
-### Problem to Tackle
-
 # Technical Description of Parallel Software Solution
 
 In order to reduce the runtimes associated with generating simulations of blood flow, we implemented several different parallelization techniques. 
@@ -91,7 +80,7 @@ In addition, we manually converted the original Python version of the blood flow
 
 
 **SPMD Parallelization**  
-We also sought to use single program, multiple data (SPMD) parallelization models to achieve greater speedup in our simulation execution. In our implementation of this model, we designed a hybrid OpenACC + MPI program that enables multiple processors to simulateneously execute the same program while operating on different different subsets of the data. With regards to the implementation of this hybrid approach, we built upon the OpenACC version of the simluation by first initializing an MPI execution environment, called a communicator, prior to the bulk updating procedures in the simulation. We then broadcast the array storing voltage values to all other processes of the communicator via the MPI_Bcast() function. We identified this voltage array as the optimal "message" to be broadcast due to the frequency of its use in the simulation process as well as parallelizability of the procedures for updating voltage values across the various time points in the simulation. 
+We also sought to use single program, multiple data (SPMD) parallelization models to achieve greater speedup in our simulation execution. In our implementation of this model, we designed a hybrid OpenACC + MPI program that enables multiple processors to simulateneously execute the same program while operating on different different subsets of the data. With regards to the implementation of this hybrid approach, we built upon the OpenACC version of the simluation by first initializing an MPI execution environment, called a communicator, prior to the bulk updating procedures in the simulation. We then broadcast the array storing voltage values to all other processes of the communicator via the MPI_Bcast() function. In doing so, we enable multiple copies of the OpenACC procedures to be run across a corresponding number of nodes by distributing the computation across these multiple nodes. We identified the voltage array as the optimal "message" to be broadcast due to the frequency of its use in the simulation process as well as the parallelizability of the procedures for updating voltage values across the various time points in the simulation. After the simulation is completed, the root node that initially distributed the data collects the results back and the algorithm is finished with its execution.
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/codeACCMPI.png" width="450">
 
@@ -275,8 +264,7 @@ Overall, there are a few advantages of using LBM to model blood flow.
 2)	It can more readily include complex boundary conditions
 3)	It can easily be parallelized. 
 
-
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png" width="400">
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/LBM1.png" width="600"></p>
 
 **_Lattice-Boltzman uses discrete particles on a lattice which can be summed to create a simplified 2D Navier-Stokes model._**
 
