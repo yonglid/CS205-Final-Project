@@ -201,9 +201,9 @@ When we increased the size of N, we actually saw a decrease in the benefits of p
 | 150000 | 600 | 548.230000 | 0.461 |
 | 500000 | 600 |  1830.490000 | 0.461 |
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_throughput.png" width="512">
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_speedup.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_speedup.png" width="512">
 
 We can see that we get the best performance out of the parallelisation with the N=600. This is fantastic since an N of 600 is likely the most biologically accurate, but it also provides the scaling necessary to see an increase in the performance through parallelisation. The speedup observe from this implementation would easily allow biological hypotheses to be tested in a more reasonable amount of time, allowing for much faster scientific research to be performed.
 
