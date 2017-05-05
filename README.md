@@ -87,6 +87,8 @@ We also sought to use single program, multiple data (SPMD) parallelization model
 
 Since heart fibers range between 10 micrometers and 100 micrometers, we ran a few separate cases for benchmarking. L=3.0cm is a biologically reasonable fiber length for a tunicate. Consequently, an N of 300 will give a 100 micrometer fiber cell, N=600 gives a 50 micrometer fiber cell, and N=3000 gives a 10 micrometer fiber cell.
 
+### N = 300
+
 #### Python Serial 
 
 
@@ -140,13 +142,15 @@ We can see that overall, the Python implementation has very poor performance and
 | 500000 | 600 | 1001.020000 | 0.423|
 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c300_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/300nop100_throughput.png" width="512">
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c300_speedup.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/300nop100_speedup.png" width="512">
 
 We can see that the C implementation already provides much faster simulation generation than the Python code does. Additionally, the parallelisation of the code produced much better speedups that the parallelisation of the Python code. Using OpenACC, OpenACC + MPI, and then OpenACC on the NVIDIA Tesla P100, our throughput drastically increased and the computation time was at worst, halved.
 
 In order to better show the effects of the parallelisation, we doubled the value N, which would increase the computation in the areas that we had parallelised. An N of 600 works well and maintains good biological accuracy with the hearts cells now being 50 micrometers in length. We did not increase the N any more than this due to the necessity of numerical stability. If .001(cellsize)/(timestep^2) > 1/2, then the numerical approximations that we use will diverge in value and not provide accurate simulations. Using a value of N which is larger than 600 would necessitate a smaller timestep, which would drastically increase computation time and slow down the code more than the parallelisation would speed it up.
+
+### N=600
 
 #### Python Serial 
 
@@ -201,9 +205,9 @@ When we increased the size of N, we actually saw a decrease in the benefits of p
 | 150000 | 600 | 548.230000 | 0.461 |
 | 500000 | 600 |  1830.490000 | 0.461 |
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_throughput.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_throughput.png" width="512">
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/c600_speedup.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_speedup.png" width="512">
 
 We can see that we get the best performance out of the parallelisation with the N=600. This is fantastic since an N of 600 is likely the most biologically accurate, but it also provides the scaling necessary to see an increase in the performance through parallelisation. The speedup observe from this implementation would easily allow biological hypotheses to be tested in a more reasonable amount of time, allowing for much faster scientific research to be performed.
 
