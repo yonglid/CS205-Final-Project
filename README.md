@@ -253,7 +253,7 @@ To further explore ways in which we can improve the execution of our simulation 
 | 150000 | 600 |501.82| 0.504|
 | 500000 | 600 | 1662.24 | 0.507|
 
-<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="300"></p><p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="300"></p>
+<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="350" style="float: left;"></p><p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="350" style="float: right;"></p>
 
 <p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="300"></p><p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="300"></p>
 
