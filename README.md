@@ -253,9 +253,9 @@ To further explore ways in which we can improve the execution of our simulation 
 | 150000 | 600 |501.82| 0.504|
 | 500000 | 600 | 1662.24 | 0.507|
 
-<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="600"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="600"></p>
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="400"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="400"></p>
 
-<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="600"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="600"></p>
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="400"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="400"></p>
 
 
 As can be seen from the data, the execution of both our serial and OpenACC paralellized models demonstrated noticeably more throughput with the P100 GPUs than with the GPUs available in Odyssey. In addition, we observe a similar amount of speedup of the program between the two machines. When comparing the C serial implementation of the program with the OpenACC model within the context of the machines on which they are executed, it appears as if approximately the same speedup is achieved when the OpenACC implementation is run on the P100 GPUs in Bridges compared to the GPUs used in Odyssey. 
