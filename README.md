@@ -229,10 +229,10 @@ To further explore ways in which we can improve the execution of our simulation 
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | 55.990000 |0.453|
-| 60000 | 600 | 103.770000  | 0.489|
-| 150000 | 600 | 271.700000 | 0.467|
-| 500000 | 600 | 903.990000 | 0.467|
+| 30000 | 600 | 55.99 |0.453|
+| 60000 | 600 | 103.77  | 0.489|
+| 150000 | 600 | 271.70 | 0.467|
+| 500000 | 600 | 903.99 | 0.467|
 
 #### C Serial (NVIDIA Tesla P100): N = 600
 
@@ -248,10 +248,10 @@ To further explore ways in which we can improve the execution of our simulation 
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | 99.860000 |0.506|
-| 60000 | 600 | 200.110000  | 0.505|
-| 150000 | 600 |501.820000| 0.504|
-| 500000 | 600 | 1662.240000 | 0.507|
+| 30000 | 600 | 99.86 |0.506|
+| 60000 | 600 | 200.11  | 0.505|
+| 150000 | 600 |501.82| 0.504|
+| 500000 | 600 | 1662.24 | 0.507|
 
 As can be seen from the data, the execution of both our serial and OpenACC paralellized models demonstrated noticeably more throughput with the P100 GPUs than with the GPUs available in Odyssey. 
 
