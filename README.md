@@ -105,9 +105,9 @@ Since heart fibers range between 10 micrometers and 100 micrometers, we ran a fe
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 10000 | 600 | 463.6690833568573 |0.018|
-| 30000 | 600 | 1553.7774078845978 |0.016|
-| 60000 | 600 | 3242.5310328006744 | 0.016|
+| 10000 | 600 | 463.67 |0.018|
+| 30000 | 600 | 1553.78 |0.016|
+| 60000 | 600 | 3242.53 | 0.016|
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_cython_throughput.png" width="512">
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/python_speedup.png" width="512">
@@ -118,28 +118,28 @@ We can see that overall, the Python implementation has very poor performance and
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | 125.010000 |0.203|
-| 60000 | 600 | 307.410000 | 0.165|
-| 150000 | 600 | 856.340000 | 0.148|
-| 500000 | 600 | 2986.510000 | 0.142|
+| 30000 | 600 | 125.01 |0.203|
+| 60000 | 600 | 307.41 | 0.165|
+| 150000 | 600 | 856.34 | 0.148|
+| 500000 | 600 | 2986.51 | 0.142|
 
 #### OpenACC
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | 61.090000 |0.415|
-| 60000 | 600 | 123.010000 | 0.412|
-| 150000 | 600 | 308.050000 | 0.412|
-| 500000 | 600 | 1029.380000 | 0.411|
+| 30000 | 600 | 61.09 |0.415|
+| 60000 | 600 | 123.01 | 0.412|
+| 150000 | 600 | 308.05 | 0.412|
+| 500000 | 600 | 1029.38 | 0.411|
 
 #### OpenACC + MPI [code](https://github.com/yonglid/CS205-Final-Project/blob/master/OpenACC%2BMPI/full_write_parMPI.c)
 
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
-| 30000 | 600 | 60.870000 |0.416|
-| 60000 | 600 | 120.190000 | 0.422|
-| 150000 | 600 | 299.800000 | 0.423|
-| 500000 | 600 | 1001.020000 | 0.423|
+| 30000 | 600 | 60.87 |0.416|
+| 60000 | 600 | 120.19 | 0.422|
+| 150000 | 600 | 299.80 | 0.423|
+| 500000 | 600 | 1001.02 | 0.423|
 
 
 <img src="https://github.com/yonglid/CS205-Final-Project/blob/master/300nop100_throughput.png" width="512">
@@ -169,7 +169,7 @@ In order to better show the effects of the parallelisation, we doubled the value
 | ms | resolution | time | GFlops/s |
 | ------------- | ------------- | ------------- | ------------- |
 | 10000 | 600 | 832.72 |0.020|
-| 30000 | 600 | 2601.1 |0.019|
+| 30000 | 600 | 2601.10 |0.019|
 | 60000 | 600 | 5411.19 | 0.019|
 
 
@@ -253,7 +253,12 @@ To further explore ways in which we can improve the execution of our simulation 
 | 150000 | 600 |501.82| 0.504|
 | 500000 | 600 | 1662.24 | 0.507|
 
-As can be seen from the data, the execution of both our serial and OpenACC paralellized models demonstrated noticeably more throughput with the P100 GPUs than with the GPUs available in Odyssey. 
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="600"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="600"></p>
+
+<p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="600"></p><p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="600"></p>
+
+
+As can be seen from the data, the execution of both our serial and OpenACC paralellized models demonstrated noticeably more throughput with the P100 GPUs than with the GPUs available in Odyssey. In addition, we observe a similar amount of speedup of the program between the two machines. When comparing the C serial implementation of the program with the OpenACC model within the context of the machines on which they are executed, it appears as if approximately the same speedup is achieved when the OpenACC implementation is run on the P100 GPUs in Bridges compared to the GPUs used in Odyssey. 
 
 ### Modeling: The Lattice Boltzmann Model (LBM) [Click here to see the python code](https://github.com/yonglid/CS205-Final-Project/blob/master/Lattice_Boltzmann.py)
 
