@@ -253,14 +253,9 @@ To further explore ways in which we can improve the execution of our simulation 
 | 150000 | 600 |501.82| 0.504|
 | 500000 | 600 | 1662.24 | 0.507|
 
-![]("https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png") ![]("https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png")
+<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="400"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="400"></p>
 
-![]("https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png") ![]("https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png")
-
-<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="350" style="float: left;"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="350" style="float: right;"></p>
-
-<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300throughput.png" width="350"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600throughput.png" width="350"></p>
-
+<p><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N300speedup.png" width="400" style="float: left;"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p100N600speedup.png" width="400" style="float: right;"></p>
 
 As can be seen from the data, the execution of both our serial and OpenACC paralellized models demonstrated noticeably more throughput with the P100 GPUs than with the GPUs available in Odyssey. In addition, we observe differences in the amount of speedup of the program between the two machines. When comparing the C serial implementation of the program with the OpenACC model within the context of the machines on which they are executed, it appears as if the speedup achieved by the OpenACC implementation on the P100 GPUs in Bridges is lower than that of the GPUs used in Odyssey when N = 300. However, once we increase the problem size to N = 600, the speedup achieved on the P100 GPUs appears to be greater than the speedup observed in Odyssey.
 
