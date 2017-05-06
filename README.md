@@ -173,9 +173,7 @@ In order to better show the effects of the parallelisation, we doubled the value
 | 60000 | 600 | 5411.19 | 0.019|
 
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_throughput.png" width="512">
-
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_speedup.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_throughput.png" width="512"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/p600_speedup.png" width="512">
 
 When we increased the size of N, we actually saw a decrease in the benefits of parallelisation using Cython. In fact, the Cython code performed worse than the serial Python code. At the same time though, the throughput of the Python code was decreasing as we increased size while the Cython code stayed relatively constant. It would be plausible that for longer simulations, the Cython code would eventually overtake the Python code again. However at the objective speeds that this code was running at, running this experiment in Python/Cython is unfeasible anyway and the focus should be on doing simulations using C code.
 
@@ -205,9 +203,7 @@ When we increased the size of N, we actually saw a decrease in the benefits of p
 | 150000 | 600 | 548.230000 | 0.461 |
 | 500000 | 600 |  1830.490000 | 0.461 |
 
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_throughput.png" width="512">
-
-<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_speedup.png" width="512">
+<img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_throughput.png" width="512"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/nop100_speedup.png" width="512">
 
 We can see that we get the best performance out of the parallelisation with the N=600. This is fantastic since an N of 600 is likely the most biologically accurate, but it also provides the scaling necessary to see an increase in the performance through parallelisation. The speedup observe from this implementation would easily allow biological hypotheses to be tested in a more reasonable amount of time, allowing for much faster scientific research to be performed.
 
@@ -302,6 +298,11 @@ The basic process of Lattice-Boltzmann is illustrated below:
 **Results:** The Lattice Boltzmann model shows that at least for the approximate values for blood flow, the velocity does not converge to the expected values. Overall, this alludes to limitations with using a simple 2D LBM model. For multiphase fluids, Lattice-Boltzmann assumes that all components have the same viscocity. More accurate results have been shown with a bi-visocity model to simulate blood flow (Liu, 2012). An additional reason the D2Q9 LBM model does not match the expected curve could be the compressiblity error becomes dominant. To improve this model, one solution is to use incompressible boundary conditons.
 
 <p align="center"><img src="https://github.com/yonglid/CS205-Final-Project/blob/master/figure_1.png" width="400"></p>
+
+
+# Conclusions
+
+The phenomenon of blood flow reversal in tunicates is one of the most fascinating biological properties observed in nature. Efforts to better understand this unique process have included developing complex mathematical models drawing from areas in wave mechanics, physiology, and fluid dynamics. Simulations of some of these models are, however, computationally intensive and the time-consuming nature of these simulations serve as a barrier to learning more about these creatures. In this project, SIMT and SPMD parallel programming models were developed to tackle this obstacle and they succeeded in improving not only the speeds but also the efficiency of the algorithms' execution. Exploration of advanced GPU technologies with the NVIDIA Tesla P100 GPU accelerators as well as deeper analyses into complementary models in blood flow simulation, like the Lattice Boltzmann model, provided even further insight into potential improvement strategies for the future. By incorporating these features into the analysis pipeline, we hope that these methods serve as a set of first steps toward providing more accessible and efficient tools for researchers in the field. 
 
 
 # Citations
